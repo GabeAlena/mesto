@@ -1,0 +1,12 @@
+.element__title-like {
+  margin: 0;
+  width: 100%;
+  padding-right: 15px;
+  padding-top: 25px;
+  padding-bottom: 23px;
+  padding-left: 21px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
