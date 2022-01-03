@@ -1,6 +1,7 @@
 .profile__info_edit-button {
   margin: 0;
   margin-bottom: 9px;
+  margin-left: 18px;
   padding: 0;
   width: 24px;
   height: 24px;
@@ -28,5 +29,6 @@
     width: 18px;
     height: 18px;
     margin-bottom: 6px;
+    margin-left: 0;
   }
 }
