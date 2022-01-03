@@ -1,7 +1,7 @@
 //Описание кнопки редактирования профиля
-const buttonProfileInfoEdit = document.querySelector('.profile__info_edit-button');
+const buttonProfileInfoEdit = document.querySelector('.profile__edit-button');
 //Описание кнопки(крестика) закрытия попапа
-const buttonClose = document.querySelector('.popup__close_btn');
+const buttonClose = document.querySelector('.popup__close-btn');
 //Описание класса оверлэй (затемнение экрана при открытии попапа)
 const overlay = document.querySelector('.overlay');
 //Описание кнопки Сохранить изменения
@@ -34,8 +34,8 @@ let formElement = document.querySelector('.popup');
 let nameInput = document.querySelector('.popup__name');
 let jobInput = document.querySelector('.popup__job');
 //Присваиваем переменные профилю
-let profileName = document.querySelector('.profile__info_name');
-let profileJob = document.querySelector('.profile__info_job');
+let profileName = document.querySelector('.profile__name');
+let profileJob = document.querySelector('.profile__job');
 
 //Обработчик отправки формы, хотя она пока
 //никуда отправляться не будет
