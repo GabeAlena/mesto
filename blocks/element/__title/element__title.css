@@ -1,5 +1,4 @@
 .element__title {
-  max-width: 190px;
   margin: 0;
   padding: 0;
   font-style: normal;
@@ -9,10 +8,4 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
-
-@media screen and (max-width: 568px){
-  .element__title {
-    max-width: 200px;
-  }
 }

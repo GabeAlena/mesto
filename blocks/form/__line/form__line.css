@@ -1,0 +1,7 @@
+.form__line {
+  height: 1px;
+  background-color: #000000;
+  opacity: .2;
+  width: 100%;
+  margin-bottom: 30px;
+}

@@ -20,7 +20,8 @@
             <div class="profile__info">
                 <div class="profile__inform">
                     <h1 class="profile__info_name">Жак-Ив Кусто</h1>
-                    <img class="profile__info_edit-button" src="./images/Edit Button.svg" alt="кнопка изменить данные пользователя">
+                    <img class="profile__info_edit-button" src="./images/Edit Button.svg"
+                        alt="кнопка изменить данные пользователя">
                 </div>
                 <h2 class="profile__info_job">Исследователь океана</h2>
             </div>
@@ -32,42 +33,42 @@
                 <img class="element__image" src="./images/karachaevsk.jpeg" alt="Карачаевск">
                 <div class="element__title-like">
                     <h2 class="element__title">Карачаевск</h2>
-                    <button class="element__like"></button> 
+                    <button class="element__like"></button>
                 </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/elbrus.jpeg" alt="Гора Эльбрус">
                 <div class="element__title-like">
                     <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__like"></button> 
+                    <button class="element__like"></button>
                 </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/dombai.jpeg" alt="Домбай">
                 <div class="element__title-like">
                     <h2 class="element__title">Домбай</h2>
-                    <button class="element__like"></button> 
+                    <button class="element__like"></button>
                 </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/elbrus.jpeg" alt="Гора Эльбрус">
                 <div class="element__title-like">
                     <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__like"></button> 
+                    <button class="element__like"></button>
                 </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/dombai.jpeg" alt="Домбай">
                 <div class="element__title-like">
                     <h2 class="element__title">Домбай</h2>
-                    <button class="element__like"></button> 
+                    <button class="element__like"></button>
                 </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/karachaevsk.jpeg" alt="Карачаевск">
                 <div class="element__title-like">
                     <h2 class="element__title">Карачаево-Черкессия</h2>
-                    <button class="element__like"></button> 
+                    <button class="element__like"></button>
                 </div>
             </div>
         </section>
@@ -77,32 +78,30 @@
         <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
     </footer>
 
-    <section class="overlay overlay_active">
-        <!--<div class="popup">
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <input class="popup__name">Жак-Ив Кусто</p>
-            <input class="popup__job">Исследователь океана</p>
-            <input type="submit" class="popup__submit popup__submit_btn">
-            <button class="popup__close popup__close_btn"></button>
-        </div>-->
+    <section class="overlay">
         <div class="popup">
             <button class="popup__close popup__close_btn"></button>
             <form class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <fieldset class="form__input-container">
-                    <input type="text" class="popup__name" id="name" name="name" placeholder="Жак-Ив Кусто">
+                    <input type="text" class="popup__name" name="name" placeholder="Жак-Ив Кусто">
                 </fieldset>
 
+                <div class="form__line"></div>
+
                 <fieldset class="form__input-container">
-                    <input type="text" class="popup__job" id="name" name="job" placeholder="Исследователь океана">
+                    <input type="text" class="popup__job" name="job" placeholder="Исследователь океана">
                 </fieldset>
+
+                <div class="form__line"></div>
 
                 <fieldset class="form">
                     <input type="submit" class="form__button" value="Сохранить">
                 </fieldset>
             </form>
         </div>
-
     </section>
     <script src='./scripts/index.js'></script>
 </body>
+
+</html>
