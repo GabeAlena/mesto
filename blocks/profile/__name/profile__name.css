@@ -10,26 +10,11 @@
   text-overflow: ellipsis;
 }
 
-@media screen and (max-width: 1024px){
-  .profile__name {
-    font-size: 38px;
-    line-height: 27px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .profile__name {
-    font-size: 30px;
-    line-height: 36px;
-  }
-}
-
 @media screen and (max-width: 568px){
   .profile__name {
     font-size: 27px;
     line-height: 33px;
     margin-right: 10px;
     padding-left: 20px;
-    text-align: center;
   }
 }
