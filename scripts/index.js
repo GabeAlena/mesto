@@ -25,6 +25,7 @@ function formSubmitHandler (event) {
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
     overlay.classList.remove(overlayActiveClass);
+    document.body.style.overflow = '';
 };
 
 form.addEventListener('submit', formSubmitHandler);
