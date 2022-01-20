@@ -1,4 +1,4 @@
-.elements {
+.elements-container {
   font-family: 'Inter', Arial, sans-serif;
   width: 100%;
   box-sizing: border-box;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 568px) {
-  .elements {
+  .elements-container {
     column-gap: 0;
   }
 }

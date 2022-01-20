@@ -22,7 +22,7 @@
 }
 
 @media screen and (max-width: 568px){
-  .form__button {
+  .popup__button {
     min-height: 46px;
     font-size: 14px;
     line-height: 17px;

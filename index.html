@@ -26,50 +26,10 @@
             <button class="profile__add-button" type="button" aria-label="кнопка добавить фото"></button>
         </section>
 
-        <section class="elements">
-            <article class="element">
-                <img class="element__image" src="./images/karachaevsk.jpeg" alt="Карачаевск">
-                <div class="element__title-like">
-                    <h2 class="element__title">Карачаевск</h2>
-                    <button class="element__like" type="button" aria-label="кнопка мне нравится"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img class="element__image" src="./images/elbrus.jpeg" alt="Гора Эльбрус">
-                <div class="element__title-like">
-                    <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__like" type="button" aria-label="кнопка мне нравится"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img class="element__image" src="./images/dombai.jpeg" alt="Домбай">
-                <div class="element__title-like">
-                    <h2 class="element__title">Домбай</h2>
-                    <button class="element__like" type="button" aria-label="кнопка мне нравится"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img class="element__image" src="./images/elbrus.jpeg" alt="Гора Эльбрус">
-                <div class="element__title-like">
-                    <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__like" type="button" aria-label="кнопка мне нравится"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img class="element__image" src="./images/dombai.jpeg" alt="Домбай">
-                <div class="element__title-like">
-                    <h2 class="element__title">Домбай</h2>
-                    <button class="element__like" type="button" aria-label="кнопка мне нравится"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img class="element__image" src="./images/karachaevsk.jpeg" alt="Карачаевск">
-                <div class="element__title-like">
-                    <h2 class="element__title">Карачаево-Черкессия</h2>
-                    <button class="element__like" type="button" aria-label="кнопка мне нравится"></button>
-                </div>
-            </article>
+        <section class="elements-container">
+    
         </section>
+
     </main>
 
     <footer class="footer">
@@ -89,6 +49,36 @@
             </form>
         </div>
     </section>
+
+    <section class="overlayAdd">
+        <div class="popupAdd">
+            <button class="popupAdd__close-btn" type="button" aria-label="закрыть форму"></button>
+            <form class="popupAdd__container" name="popupAdd__container">
+                <h2 class="popupAdd__title">Новое место</h2>
+                <fieldset class="popupAdd__info">
+                    <input type="text" class="popupAdd__input popupAdd__input_type_name" placeholder="Название" name="name">
+                    <input type="text" class="popupAdd__input popupAdd__input_type_image" placeholder="Ссылка на картинку" name="image">
+                </fieldset>
+                <button type="submit" class="popupAdd__button">Создать</button>
+            </form>
+        </div>
+    </section>
+
+    <template id="add-picture-template">
+        <section class="elements">
+            <article class="element">
+                <!--<div class="element__trash-image">-->
+                    <img class="element__image" alt="место картинки">
+                    <button class="element__trash" type="button" aria-label="значок удаления карточки"></button>
+                <!--</div>-->
+                <div class="element__title-like">
+                    <h2 class="element__title"></h2>
+                    <button class="element__like" type="button" aria-label="кнопка мне нравится"></button>
+                </div>
+            </article>
+        </section>
+    </template>
+
     <script src='./scripts/index.js'></script>
 </body>
 
