@@ -19,7 +19,8 @@
             <div class="profile__info">
                 <div class="profile__inform">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <button class="profile__edit-button" type="button" aria-label="кнопка изменить данные пользователя"></button>
+                    <button class="profile__edit-button" type="button"
+                        aria-label="кнопка изменить данные пользователя"></button>
                 </div>
                 <p class="profile__job">Исследователь океана</p>
             </div>
@@ -27,9 +28,8 @@
         </section>
 
         <section class="elements-container">
-    
-        </section>
 
+        </section>
     </main>
 
     <footer class="footer">
@@ -43,7 +43,7 @@
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <fieldset class="popup__info">
                     <input type="text" class="popup__input popup__input_type_name" name="name">
-                    <input type="text" class="popup__input popup__input_type_job" name="job">    
+                    <input type="text" class="popup__input popup__input_type_job" name="job">
                 </fieldset>
                 <button type="submit" class="popup__button">Сохранить</button>
             </form>
@@ -56,8 +56,10 @@
             <form class="popupAdd__container" name="popupAdd__container">
                 <h2 class="popupAdd__title">Новое место</h2>
                 <fieldset class="popupAdd__info">
-                    <input type="text" class="popupAdd__input popupAdd__input_type_name" placeholder="Название" name="name">
-                    <input type="text" class="popupAdd__input popupAdd__input_type_image" placeholder="Ссылка на картинку" name="image">
+                    <input type="text" class="popupAdd__input popupAdd__input_type_name" placeholder="Название"
+                        name="name">
+                    <input type="text" class="popupAdd__input popupAdd__input_type_image"
+                        placeholder="Ссылка на картинку" name="image">
                 </fieldset>
                 <button type="submit" class="popupAdd__button">Создать</button>
             </form>
@@ -67,7 +69,7 @@
     <section class="overlayModal">
         <div class="modalWindow">
             <button class="modalWindow__close-btn" type="button" aria-label="закрыть модальное окно"></button>
-            <img class="modalWindow__image" src="" alt="картинка модального окна">
+            <img class="modalWindow__image" alt="картинка модального окна">
             <h2 class="modalWindow__title"></h2>
         </div>
     </section>
@@ -75,10 +77,10 @@
     <template id="add-picture-template">
         <section class="elements">
             <article class="element">
-                <!--<div class="element__trash-image">-->
+                <div class="element__trash-image">
                     <img class="element__image" alt="место картинки">
                     <button class="element__trash" type="button" aria-label="значок удаления карточки"></button>
-                <!--</div>-->
+                </div>
                 <div class="element__title-like">
                     <h2 class="element__title"></h2>
                     <button class="element__like" type="button" aria-label="кнопка мне нравится"></button>

@@ -1,33 +1,37 @@
+//константы для изменения данных профиля
 const buttonProfileInfoEdit = document.querySelector('.profile__edit-button');
 const buttonClose = document.querySelector('.popup__close-btn');
 const overlay = document.querySelector('.overlay');
 const overlayActiveClass = 'overlay_active';
-let form = document.querySelector('.popup__container');
+const form = document.querySelector('.popup__container');
 let nameInput = document.querySelector('.popup__input_type_name');
 let jobInput = document.querySelector('.popup__input_type_job');
 let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
 
+//функции для изменения данных профиля
 function openPopup() {
     overlay.classList.add(overlayActiveClass);
     document.body.style.overflow = 'hidden';
 }
-
 function closePopup() {
     overlay.classList.remove(overlayActiveClass);
     document.body.style.overflow = '';
 }
 
-buttonProfileInfoEdit.addEventListener('click', function(event) {
+//слушатель событий для кнопки изменения данных профиля
+buttonProfileInfoEdit.addEventListener('click', function (event) {
     openPopup();
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
 });
 
-buttonClose.addEventListener('click', function() {
+//слушатель событий для крестика попапа изменения данных профиля
+buttonClose.addEventListener('click', function () {
     closePopup();
 });
 
+//создание функции для ввода новых данных профиля
 function formSubmitHandler(event) {
     event.preventDefault();
     profileName.textContent = nameInput.value;
@@ -35,113 +39,112 @@ function formSubmitHandler(event) {
     closePopup();
 };
 
+//слушатель событий для кноки "сохранить" попапа редактирования профиля
 form.addEventListener('submit', formSubmitHandler);
 
+//константы для добавления новых карточек
 const buttonAddElement = document.querySelector('.profile__add-button');
 const buttonCloseAdd = document.querySelector('.popupAdd__close-btn');
 const overlayAdd = document.querySelector('.overlayAdd');
 const overlayAddActiveClass = 'overlayAdd_active';
-let formAdd = document.querySelector('.popupAdd__container');
+const formAdd = document.querySelector('.popupAdd__container');
 const elementsContainer = document.querySelector('.elements-container');
-const deleteButton = document.querySelector('.element__trash');
 const initialCards = [
     {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
     {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
     },
     {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
     },
     {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
     },
     {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
     },
     {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-  ];
-  
+];
+
+//функции для попапа добавления карточек
 function openPopupAdd() {
     overlayAdd.classList.add(overlayAddActiveClass);
     document.body.style.overflow = 'hidden';
 }
-
 function closePopupAdd() {
     overlayAdd.classList.remove(overlayAddActiveClass);
     document.body.style.overflow = '';
 }
 
-buttonAddElement.addEventListener('click', function(event) {
+//слушатель событий для открытия попапа добавления карточек
+buttonAddElement.addEventListener('click', (event) => {
     openPopupAdd();
 });
 
-buttonCloseAdd.addEventListener('click', function() {
+//слушатель событий для закрытия попапа добавления карточек
+buttonCloseAdd.addEventListener('click', (event) => {
     closePopupAdd();
 });
 
-//Создание модального окна
+//константы открытия модального окна
 const overlayModal = document.querySelector('.overlayModal');
-const buttonModalImage = document.querySelector('.element__image');
 const overlayModalActiveClass = 'overlayModal_active';
 const modalClose = document.querySelector('.modalWindow__close-btn');
-
 const imageModal = document.querySelector('.modalWindow__image');
 const titleModal = document.querySelector('.modalWindow__title');
-const imageElement = document.querySelector('.element__image');
-const titleElement = document.querySelector('.element__title');
 
+//функции для модальных окон
 function openPopupModal() {
     overlayModal.classList.add(overlayModalActiveClass);
     document.body.style.overflow = 'hidden';
 }
-
 function closePopupModal() {
     overlayModal.classList.remove(overlayModalActiveClass);
     document.body.style.overflow = '';
 }
 
+//функция для добавления карточек
 function addPicture(nameValue, imageValue) {
-    //получаем содержимое темплейта обращаясь к его свойству content
+    //получаем содержимое темплейта обращаясь к его свойству content и клонируем содержимое тега темплейт
     const addPictureTemplate = document.querySelector('#add-picture-template').content;
-    //клонируем содержимое тега темплейт
     const addPictureElement = addPictureTemplate.querySelector('.element').cloneNode(true);
-    //наполняем содержимым
     const addTitleElement = addPictureElement.querySelector('.element__title');
     const addImageElement = addPictureElement.querySelector('.element__image');
+    const elementLike = addPictureElement.querySelector('.element__like');
+    const elementTrash = addPictureElement.querySelector('.element__trash');
+
     addTitleElement.textContent = nameValue;
     addImageElement.src = imageValue;
-    
+
     //нажатие лайка
-    const elementLike = addPictureElement.querySelector('.element__like');
-    elementLike.addEventListener('click', function(event) {
+    elementLike.addEventListener('click', function (event) {
         event.target.classList.toggle('element__like_active');
     });
 
     //удаление карточки
-    const elementTrash = addPictureElement.querySelector('.element__trash');
-    elementTrash.addEventListener('click', function(event) {
+    elementTrash.addEventListener('click', (event) => {
         event.target.closest('.element').remove();
     });
-    
+
     //вызов модального окна
-    addImageElement.addEventListener('click', function(event) {
+    addImageElement.addEventListener('click', (event) => {
         openPopupModal();
         imageModal.src = imageValue;
         titleModal.textContent = nameValue;
     });
 
     //закрытие модального окна
-    modalClose.addEventListener('click', function() {
+    modalClose.addEventListener('click', () => {
         closePopupModal();
     });
 
@@ -154,7 +157,7 @@ initialCards.forEach(item => {
 });
 
 //добавление новой карточки на страницу
-function formAddSubmitHandler (event) {
+function formAddSubmitHandler(event) {
     event.preventDefault();
     let nameAddInput = document.querySelector('.popupAdd__input_type_name');
     let imageAddInput = document.querySelector('.popupAdd__input_type_image');
