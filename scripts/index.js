@@ -20,14 +20,14 @@ function closePopup() {
 }
 
 //слушатель событий для кнопки изменения данных профиля
-buttonProfileInfoEdit.addEventListener('click', function (event) {
+buttonProfileInfoEdit.addEventListener('click', (event) => {
     openPopup();
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
 });
 
 //слушатель событий для крестика попапа изменения данных профиля
-buttonClose.addEventListener('click', function () {
+buttonClose.addEventListener('click', () => {
     closePopup();
 });
 
@@ -116,18 +116,18 @@ function closePopupModal() {
 //функция для добавления карточек
 function addPicture(nameValue, imageValue) {
     //получаем содержимое темплейта обращаясь к его свойству content и клонируем содержимое тега темплейт
-    const addPictureTemplate = document.querySelector('#add-picture-template').content;
-    const addPictureElement = addPictureTemplate.querySelector('.element').cloneNode(true);
-    const addTitleElement = addPictureElement.querySelector('.element__title');
-    const addImageElement = addPictureElement.querySelector('.element__image');
-    const elementLike = addPictureElement.querySelector('.element__like');
-    const elementTrash = addPictureElement.querySelector('.element__trash');
+    const PictureTemplate = document.querySelector('#add-picture-template').content;
+    const PictureElement = PictureTemplate.querySelector('.element').cloneNode(true);
+    const TitleElement = PictureElement.querySelector('.element__title');
+    const ImageElement = PictureElement.querySelector('.element__image');
+    const elementLike = PictureElement.querySelector('.element__like');
+    const elementTrash = PictureElement.querySelector('.element__trash');
 
-    addTitleElement.textContent = nameValue;
-    addImageElement.src = imageValue;
+    TitleElement.textContent = nameValue;
+    ImageElement.src = imageValue;
 
     //нажатие лайка
-    elementLike.addEventListener('click', function (event) {
+    elementLike.addEventListener('click', (event) => {
         event.target.classList.toggle('element__like_active');
     });
 
@@ -137,7 +137,7 @@ function addPicture(nameValue, imageValue) {
     });
 
     //вызов модального окна
-    addImageElement.addEventListener('click', (event) => {
+    ImageElement.addEventListener('click', () => {
         openPopupModal();
         imageModal.src = imageValue;
         titleModal.textContent = nameValue;
@@ -149,7 +149,7 @@ function addPicture(nameValue, imageValue) {
     });
 
     //отображаем на странице карточки
-    elementsContainer.prepend(addPictureElement);
+    elementsContainer.prepend(PictureElement);
 }
 
 initialCards.forEach(item => {
