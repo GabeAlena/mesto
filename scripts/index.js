@@ -28,7 +28,7 @@ buttonClose.addEventListener('click', function() {
     closePopup();
 });
 
-function formSubmitHandler (event) {
+function formSubmitHandler(event) {
     event.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
@@ -43,6 +43,7 @@ const overlayAdd = document.querySelector('.overlayAdd');
 const overlayAddActiveClass = 'overlayAdd_active';
 let formAdd = document.querySelector('.popupAdd__container');
 const elementsContainer = document.querySelector('.elements-container');
+const deleteButton = document.querySelector('.element__trash');
 const initialCards = [
     {
       name: 'Архыз',
@@ -88,31 +89,71 @@ buttonCloseAdd.addEventListener('click', function() {
     closePopupAdd();
 });
 
+//Создание модального окна
+const overlayModal = document.querySelector('.overlayModal');
+const buttonModalImage = document.querySelector('.element__image');
+const overlayModalActiveClass = 'overlayModal_active';
+const modalClose = document.querySelector('.modalWindow__close-btn');
+
+const imageModal = document.querySelector('.modalWindow__image');
+const titleModal = document.querySelector('.modalWindow__title');
+const imageElement = document.querySelector('.element__image');
+const titleElement = document.querySelector('.element__title');
+
+function openPopupModal() {
+    overlayModal.classList.add(overlayModalActiveClass);
+    document.body.style.overflow = 'hidden';
+}
+
+function closePopupModal() {
+    overlayModal.classList.remove(overlayModalActiveClass);
+    document.body.style.overflow = '';
+}
+
 function addPicture(nameValue, imageValue) {
     //получаем содержимое темплейта обращаясь к его свойству content
     const addPictureTemplate = document.querySelector('#add-picture-template').content;
     //клонируем содержимое тега темплейт
     const addPictureElement = addPictureTemplate.querySelector('.element').cloneNode(true);
     //наполняем содержимым
-    addPictureElement.querySelector('.element__title').textContent = nameValue;
-    addPictureElement.querySelector('.element__image').src = imageValue;
+    const addTitleElement = addPictureElement.querySelector('.element__title');
+    const addImageElement = addPictureElement.querySelector('.element__image');
+    addTitleElement.textContent = nameValue;
+    addImageElement.src = imageValue;
     
-    addPictureElement.querySelector('.element__like').addEventListener('click', function(event) {
+    //нажатие лайка
+    const elementLike = addPictureElement.querySelector('.element__like');
+    elementLike.addEventListener('click', function(event) {
         event.target.classList.toggle('element__like_active');
     });
 
-    addPictureElement.querySelector('.element__trash').addEventListener('click', function(event) {
-        this.closest('.element').remove();
+    //удаление карточки
+    const elementTrash = addPictureElement.querySelector('.element__trash');
+    elementTrash.addEventListener('click', function(event) {
+        event.target.closest('.element').remove();
+    });
+    
+    //вызов модального окна
+    addImageElement.addEventListener('click', function(event) {
+        openPopupModal();
+        imageModal.src = imageValue;
+        titleModal.textContent = nameValue;
     });
 
-    //отображаем на странице
-    elementsContainer.append(addPictureElement);
+    //закрытие модального окна
+    modalClose.addEventListener('click', function() {
+        closePopupModal();
+    });
+
+    //отображаем на странице карточки
+    elementsContainer.prepend(addPictureElement);
 }
 
-initialCards.forEach(function(item) {
+initialCards.forEach(item => {
     addPicture(item.name, item.link);
 });
 
+//добавление новой карточки на страницу
 function formAddSubmitHandler (event) {
     event.preventDefault();
     let nameAddInput = document.querySelector('.popupAdd__input_type_name');
@@ -122,10 +163,3 @@ function formAddSubmitHandler (event) {
 }
 
 formAdd.addEventListener('submit', formAddSubmitHandler);
-
-const deleteButton = document.querySelector('.element__trash');
-
-/*deleteButton.addEventListener('click', function () {
-    const card = deleteButton.closest('.element');
-    card.remove();
-});*/
