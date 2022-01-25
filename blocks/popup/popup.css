@@ -8,6 +8,8 @@
   margin: 0;
   padding: 34px 36px 37px 36px;
   position: relative;
+  /*opacity: 1;
+  transition: opacity 1s ease-in-out;*/
 }
 
 @media screen and (max-width: 568px){

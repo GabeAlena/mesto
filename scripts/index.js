@@ -116,15 +116,17 @@ function closePopupModal() {
 //функция для добавления карточек
 function addPicture(nameValue, imageValue) {
     //получаем содержимое темплейта обращаясь к его свойству content и клонируем содержимое тега темплейт
-    const PictureTemplate = document.querySelector('#add-picture-template').content;
-    const PictureElement = PictureTemplate.querySelector('.element').cloneNode(true);
-    const TitleElement = PictureElement.querySelector('.element__title');
-    const ImageElement = PictureElement.querySelector('.element__image');
-    const elementLike = PictureElement.querySelector('.element__like');
-    const elementTrash = PictureElement.querySelector('.element__trash');
+    const pictureTemplate = document.querySelector('#add-picture-template').content;
+    const pictureElement = pictureTemplate.querySelector('.element').cloneNode(true);
+    const titleElement = pictureElement.querySelector('.element__title');
+    const imageElement = pictureElement.querySelector('.element__image');
+    const elementLike = pictureElement.querySelector('.element__like');
+    const elementTrash = pictureElement.querySelector('.element__trash');
+    const imageNameElement = pictureElement.querySelector('.element__image');
 
-    TitleElement.textContent = nameValue;
-    ImageElement.src = imageValue;
+    titleElement.textContent = nameValue;
+    imageElement.src = imageValue;
+    imageNameElement.alt = nameValue;
 
     //нажатие лайка
     elementLike.addEventListener('click', (event) => {
@@ -137,7 +139,7 @@ function addPicture(nameValue, imageValue) {
     });
 
     //вызов модального окна
-    ImageElement.addEventListener('click', () => {
+    imageElement.addEventListener('click', () => {
         openPopupModal();
         imageModal.src = imageValue;
         titleModal.textContent = nameValue;
@@ -149,7 +151,7 @@ function addPicture(nameValue, imageValue) {
     });
 
     //отображаем на странице карточки
-    elementsContainer.prepend(PictureElement);
+    elementsContainer.prepend(pictureElement);
 }
 
 initialCards.forEach(item => {
