@@ -102,6 +102,7 @@ const overlayModalActiveClass = 'overlayModal_active';
 const modalClose = document.querySelector('.modalWindow__close-btn');
 const imageModal = document.querySelector('.modalWindow__image');
 const titleModal = document.querySelector('.modalWindow__title');
+const imageNameModal = document.querySelector('.modalWindow__image');
 
 //функции для модальных окон
 function openPopupModal() {
@@ -143,6 +144,7 @@ function addPicture(nameValue, imageValue) {
         openPopupModal();
         imageModal.src = imageValue;
         titleModal.textContent = nameValue;
+        imageNameModal.alt = nameValue;
     });
 
     //закрытие модального окна
