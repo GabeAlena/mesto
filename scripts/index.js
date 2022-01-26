@@ -122,8 +122,8 @@ function clickLike(event) {
     event.target.classList.toggle('element__like_active');
 }
 
-//функция для добавления карточек
-function createCard(nameValue, imageValue) {
+//функция для создания карточки
+function createCard(name, link) {
     //получаем содержимое темплейта обращаясь к его свойству content и клонируем содержимое тега темплейт
     const pictureTemplate = document.querySelector('#add-picture-template').content;
     const pictureElement = pictureTemplate.querySelector('.element').cloneNode(true);
@@ -133,9 +133,9 @@ function createCard(nameValue, imageValue) {
     const elementTrash = pictureElement.querySelector('.element__trash');
     const imageNameElement = pictureElement.querySelector('.element__image');
 
-    titleElement.textContent = nameValue;
-    imageElement.src = imageValue;
-    imageNameElement.alt = nameValue;
+    titleElement.textContent = name;
+    imageElement.src = link;
+    imageNameElement.alt = name;
 
     //нажатие лайка
     elementLike.addEventListener('click', (event) => {
@@ -149,18 +149,22 @@ function createCard(nameValue, imageValue) {
 
     //вызов модального окна
     imageElement.addEventListener('click', () => {
-        imageModal.src = imageValue;
-        titleModal.textContent = nameValue;
-        imageNameModal.alt = nameValue;
+        imageModal.src = link;
+        titleModal.textContent = name;
+        imageNameModal.alt = name;
         openPopupModal();
     });
+    
+    return pictureElement;
+};
 
-    //отображаем на странице карточки
-    elementsContainer.prepend(pictureElement);
-}
+//функция добавления карточки в контейнер
+function addCard(elementsContainer, pictureElement) {
+    elementsContainer.prepend(createCard(pictureElement.name, pictureElement.link));
+};
 
-initialCards.forEach(item => {
-    createCard(item.name, item.link);
+initialCards.forEach(function(pictureElement) {
+    addCard(elementsContainer, pictureElement);
 });
 
 //закрытие модального окна
@@ -169,12 +173,16 @@ modalClose.addEventListener('click', () => {
 });
 
 //добавление новой карточки на страницу
-function SubmitHandlerFormAdd(event) {
+function submitHandlerFormAdd(event) {
     event.preventDefault();
     const nameAddInput = document.querySelector('.popupAdd__input_type_name');
     const imageAddInput = document.querySelector('.popupAdd__input_type_image');
-    createCard(nameAddInput.value, imageAddInput.value);
+    const card = {
+        name: nameAddInput.value,
+        link: imageAddInput.value
+    };
+    addCard(elementsContainer, card);
     closePopupAdd();
 }
 
-formAdd.addEventListener('submit', SubmitHandlerFormAdd);
+formAdd.addEventListener('submit', submitHandlerFormAdd);
