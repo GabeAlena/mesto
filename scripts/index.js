@@ -4,10 +4,10 @@ const buttonClose = document.querySelector('.popup__close-btn');
 const overlay = document.querySelector('.overlay');
 const overlayActiveClass = 'overlay_active';
 const form = document.querySelector('.popup__container');
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = document.querySelector('.popup__input_type_job');
-let profileName = document.querySelector('.profile__name');
-let profileJob = document.querySelector('.profile__job');
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_job');
+const profileName = document.querySelector('.profile__name');
+const profileJob = document.querySelector('.profile__job');
 
 //функции для изменения данных профиля
 function openPopup() {
@@ -18,12 +18,15 @@ function closePopup() {
     overlay.classList.remove(overlayActiveClass);
     document.body.style.overflow = '';
 }
-
-//слушатель событий для кнопки изменения данных профиля
-buttonProfileInfoEdit.addEventListener('click', (event) => {
-    openPopup();
+function changeProfile() {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
+}
+
+//слушатель событий для кнопки изменения данных профиля
+buttonProfileInfoEdit.addEventListener('click', () => {
+    changeProfile();
+    openPopup();
 });
 
 //слушатель событий для крестика попапа изменения данных профиля
@@ -32,7 +35,7 @@ buttonClose.addEventListener('click', () => {
 });
 
 //создание функции для ввода новых данных профиля
-function formSubmitHandler(event) {
+function SubmitHandlerForm(event) {
     event.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
@@ -40,7 +43,7 @@ function formSubmitHandler(event) {
 };
 
 //слушатель событий для кноки "сохранить" попапа редактирования профиля
-form.addEventListener('submit', formSubmitHandler);
+form.addEventListener('submit', SubmitHandlerForm);
 
 //константы для добавления новых карточек
 const buttonAddElement = document.querySelector('.profile__add-button');
@@ -104,7 +107,6 @@ const imageModal = document.querySelector('.modalWindow__image');
 const titleModal = document.querySelector('.modalWindow__title');
 const imageNameModal = document.querySelector('.modalWindow__image');
 
-//функции для модальных окон
 function openPopupModal() {
     overlayModal.classList.add(overlayModalActiveClass);
     document.body.style.overflow = 'hidden';
@@ -113,9 +115,15 @@ function closePopupModal() {
     overlayModal.classList.remove(overlayModalActiveClass);
     document.body.style.overflow = '';
 }
+function deleteCard(event) {
+    event.target.closest('.element').remove();
+}
+function clickLike(event) {
+    event.target.classList.toggle('element__like_active');
+}
 
 //функция для добавления карточек
-function addPicture(nameValue, imageValue) {
+function createCard(nameValue, imageValue) {
     //получаем содержимое темплейта обращаясь к его свойству content и клонируем содержимое тега темплейт
     const pictureTemplate = document.querySelector('#add-picture-template').content;
     const pictureElement = pictureTemplate.querySelector('.element').cloneNode(true);
@@ -131,25 +139,20 @@ function addPicture(nameValue, imageValue) {
 
     //нажатие лайка
     elementLike.addEventListener('click', (event) => {
-        event.target.classList.toggle('element__like_active');
+        clickLike(event);
     });
 
-    //удаление карточки
+     //удаление карточки
     elementTrash.addEventListener('click', (event) => {
-        event.target.closest('.element').remove();
+        deleteCard(event);
     });
 
     //вызов модального окна
     imageElement.addEventListener('click', () => {
-        openPopupModal();
         imageModal.src = imageValue;
         titleModal.textContent = nameValue;
         imageNameModal.alt = nameValue;
-    });
-
-    //закрытие модального окна
-    modalClose.addEventListener('click', () => {
-        closePopupModal();
+        openPopupModal();
     });
 
     //отображаем на странице карточки
@@ -157,16 +160,21 @@ function addPicture(nameValue, imageValue) {
 }
 
 initialCards.forEach(item => {
-    addPicture(item.name, item.link);
+    createCard(item.name, item.link);
+});
+
+//закрытие модального окна
+modalClose.addEventListener('click', () => {
+    closePopupModal();
 });
 
 //добавление новой карточки на страницу
-function formAddSubmitHandler(event) {
+function SubmitHandlerFormAdd(event) {
     event.preventDefault();
-    let nameAddInput = document.querySelector('.popupAdd__input_type_name');
-    let imageAddInput = document.querySelector('.popupAdd__input_type_image');
-    addPicture(nameAddInput.value, imageAddInput.value);
+    const nameAddInput = document.querySelector('.popupAdd__input_type_name');
+    const imageAddInput = document.querySelector('.popupAdd__input_type_image');
+    createCard(nameAddInput.value, imageAddInput.value);
     closePopupAdd();
 }
 
-formAdd.addEventListener('submit', formAddSubmitHandler);
+formAdd.addEventListener('submit', SubmitHandlerFormAdd);
