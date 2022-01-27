@@ -1,56 +1,35 @@
 //константы для изменения данных профиля
 const buttonProfileInfoEdit = document.querySelector('.profile__edit-button');
-const buttonClose = document.querySelector('.popup__close-btn');
-const overlay = document.querySelector('.overlay');
-const overlayActiveClass = 'overlay_active';
-const form = document.querySelector('.popup__container');
-const nameInput = document.querySelector('.popup__input_type_name');
-const jobInput = document.querySelector('.popup__input_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
-
-//функции для изменения данных профиля
-function openPopup() {
-    overlay.classList.add(overlayActiveClass);
+const popupProfile = document.querySelector('.popup__profile');
+const buttonCloseProfile = popupProfile.querySelector('.popup__close-btn');
+const popupActiveClass = 'popup_active';
+const formProfile = popupProfile.querySelector('.popup__form');
+const nameInput = popupProfile.querySelector('.popup__input_type_name');
+const jobInput = popupProfile.querySelector('.popup__input_type_job');
+const openPopup = (element) => {
+    element.classList.add(popupActiveClass);
     document.body.style.overflow = 'hidden';
-}
-function closePopup() {
-    overlay.classList.remove(overlayActiveClass);
-    document.body.style.overflow = '';
-}
-function changeProfile() {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-}
-
-//слушатель событий для кнопки изменения данных профиля
-buttonProfileInfoEdit.addEventListener('click', () => {
-    changeProfile();
-    openPopup();
-});
-
-//слушатель событий для крестика попапа изменения данных профиля
-buttonClose.addEventListener('click', () => {
-    closePopup();
-});
-
-//создание функции для ввода новых данных профиля
-function SubmitHandlerForm(event) {
-    event.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
-    closePopup();
 };
 
-//слушатель событий для кноки "сохранить" попапа редактирования профиля
-form.addEventListener('submit', SubmitHandlerForm);
+const closePopup = (element) => {
+    element.classList.remove(popupActiveClass);
+    document.body.style.overflow = '';
+};
+
+//константы открытия модального окна
+const popupModal = document.querySelector('.popup__modal');
+const modalClose = popupModal.querySelector('.popup__close-btn');
+const imageModal = popupModal.querySelector('.popup__image-modal');
+const titleModal = popupModal.querySelector('.popup__title-modal');
+const imageNameModal = popupModal.querySelector('.popup__title-modal');
 
 //константы для добавления новых карточек
 const buttonAddElement = document.querySelector('.profile__add-button');
-const buttonCloseAdd = document.querySelector('.popupAdd__close-btn');
-const overlayAdd = document.querySelector('.overlayAdd');
-const overlayAddActiveClass = 'overlayAdd_active';
-const formAdd = document.querySelector('.popupAdd__container');
+const popupCards = document.querySelector('.popup__cards');
+const buttonCloseAdd = popupCards.querySelector('.popup__close-btn');
+const formCards = popupCards.querySelector('.popup__form');
 const elementsContainer = document.querySelector('.elements-container');
 const initialCards = [
     {
@@ -79,48 +58,50 @@ const initialCards = [
     }
 ];
 
-//функции для попапа добавления карточек
-function openPopupAdd() {
-    overlayAdd.classList.add(overlayAddActiveClass);
-    document.body.style.overflow = 'hidden';
-}
-function closePopupAdd() {
-    overlayAdd.classList.remove(overlayAddActiveClass);
-    document.body.style.overflow = '';
-}
+function changeProfile() {
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
+};
+
+//слушатель событий для кнопки изменения данных профиля
+buttonProfileInfoEdit.addEventListener('click', () => {
+    changeProfile();
+    openPopup(popupProfile);
+});
+
+//слушатель событий для крестика попапа изменения данных профиля
+buttonCloseProfile.addEventListener('click', () => {
+    closePopup(popupProfile);
+});
+
+//создание функции для ввода новых данных профиля
+function submitHandlerForm(event) {
+    event.preventDefault();
+    profileName.textContent = nameInput.value;
+    profileJob.textContent = jobInput.value;
+    closePopup(popupProfile);
+};
+
+//слушатель событий для кноки "сохранить" попапа редактирования профиля
+formProfile.addEventListener('submit', submitHandlerForm);
 
 //слушатель событий для открытия попапа добавления карточек
-buttonAddElement.addEventListener('click', (event) => {
-    openPopupAdd();
+buttonAddElement.addEventListener('click', () => {
+    openPopup(popupCards);
 });
 
 //слушатель событий для закрытия попапа добавления карточек
-buttonCloseAdd.addEventListener('click', (event) => {
-    closePopupAdd();
+buttonCloseAdd.addEventListener('click', () => {
+    closePopup(popupCards);
 });
 
-//константы открытия модального окна
-const overlayModal = document.querySelector('.overlayModal');
-const overlayModalActiveClass = 'overlayModal_active';
-const modalClose = document.querySelector('.modalWindow__close-btn');
-const imageModal = document.querySelector('.modalWindow__image');
-const titleModal = document.querySelector('.modalWindow__title');
-const imageNameModal = document.querySelector('.modalWindow__image');
-
-function openPopupModal() {
-    overlayModal.classList.add(overlayModalActiveClass);
-    document.body.style.overflow = 'hidden';
-}
-function closePopupModal() {
-    overlayModal.classList.remove(overlayModalActiveClass);
-    document.body.style.overflow = '';
-}
 function deleteCard(event) {
     event.target.closest('.element').remove();
-}
+};
+
 function clickLike(event) {
     event.target.classList.toggle('element__like_active');
-}
+};
 
 //функция для создания карточки
 function createCard(name, link) {
@@ -138,21 +119,17 @@ function createCard(name, link) {
     imageNameElement.alt = name;
 
     //нажатие лайка
-    elementLike.addEventListener('click', (event) => {
-        clickLike(event);
-    });
+    elementLike.addEventListener('click', clickLike);
 
      //удаление карточки
-    elementTrash.addEventListener('click', (event) => {
-        deleteCard(event);
-    });
+    elementTrash.addEventListener('click', deleteCard);
 
     //вызов модального окна
     imageElement.addEventListener('click', () => {
         imageModal.src = link;
         titleModal.textContent = name;
         imageNameModal.alt = name;
-        openPopupModal();
+        openPopup(popupModal);
     });
     
     return pictureElement;
@@ -169,20 +146,20 @@ initialCards.forEach(function(pictureElement) {
 
 //закрытие модального окна
 modalClose.addEventListener('click', () => {
-    closePopupModal();
+    closePopup(popupModal);
 });
 
 //добавление новой карточки на страницу
 function submitHandlerFormAdd(event) {
     event.preventDefault();
-    const nameAddInput = document.querySelector('.popupAdd__input_type_name');
-    const imageAddInput = document.querySelector('.popupAdd__input_type_image');
+    const nameAddInput = document.querySelector('.popup__input_type_nameimage');
+    const imageAddInput = document.querySelector('.popup__input_type_image');
     const card = {
         name: nameAddInput.value,
         link: imageAddInput.value
     };
     addCard(elementsContainer, card);
-    closePopupAdd();
-}
+    closePopup(popupCards);
+};
 
-formAdd.addEventListener('submit', submitHandlerFormAdd);
+formCards.addEventListener('submit', submitHandlerFormAdd);
