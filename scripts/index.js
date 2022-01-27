@@ -2,7 +2,7 @@
 const buttonProfileInfoEdit = document.querySelector('.profile__edit-button');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
-const popupProfile = document.querySelector('.popup__profile');
+const popupProfile = document.querySelector('.popup_profile');
 const buttonCloseProfile = popupProfile.querySelector('.popup__close-btn');
 const popupActiveClass = 'popup_active';
 const formProfile = popupProfile.querySelector('.popup__form');
@@ -19,7 +19,7 @@ const closePopup = (element) => {
 };
 
 //константы открытия модального окна
-const popupModal = document.querySelector('.popup__modal');
+const popupModal = document.querySelector('.popup_modal');
 const modalClose = popupModal.querySelector('.popup__close-btn');
 const imageModal = popupModal.querySelector('.popup__image-modal');
 const titleModal = popupModal.querySelector('.popup__title-modal');
@@ -27,7 +27,7 @@ const imageNameModal = popupModal.querySelector('.popup__title-modal');
 
 //константы для добавления новых карточек
 const buttonAddElement = document.querySelector('.profile__add-button');
-const popupCards = document.querySelector('.popup__cards');
+const popupCards = document.querySelector('.popup_cards');
 const buttonCloseAdd = popupCards.querySelector('.popup__close-btn');
 const formCards = popupCards.querySelector('.popup__form');
 const elementsContainer = document.querySelector('.elements-container');
