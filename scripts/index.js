@@ -1,4 +1,5 @@
 //константы для изменения данных профиля
+const popup = document.querySelector('.popup');
 const buttonProfileInfoEdit = document.querySelector('.profile__edit-button');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
@@ -8,15 +9,31 @@ const popupActiveClass = 'popup_active';
 const formProfile = popupProfile.querySelector('.popup__form');
 const nameInput = popupProfile.querySelector('.popup__input_type_name');
 const jobInput = popupProfile.querySelector('.popup__input_type_job');
-const openPopup = (element) => {
-    element.classList.add(popupActiveClass);
-    document.body.style.overflow = 'hidden';
-};
 
+function overlayClick(event) {
+    if (event.target === this) {
+        const popupClose = document.querySelector('.popup_active')
+        closePopup(popupClose);
+    }
+}
+function closePopupKeydown(event) {
+    if (event.code === 'Escape') {
+        const keydownClose = document.querySelector('.popup_active')
+        closePopup(keydownClose);
+    }
+}
+const openPopup = (element) => {
+    document.body.style.overflow = 'hidden';
+    element.classList.add(popupActiveClass);
+    document.addEventListener('keydown', closePopupKeydown);
+    element.addEventListener('click', overlayClick);
+}
 const closePopup = (element) => {
-    element.classList.remove(popupActiveClass);
     document.body.style.overflow = '';
-};
+    element.classList.remove(popupActiveClass);
+    document.addEventListener('keydown', closePopupKeydown);
+    element.addEventListener('click', overlayClick);
+}
 
 //константы открытия модального окна
 const popupModal = document.querySelector('.popup_modal');
@@ -90,7 +107,7 @@ buttonAddElement.addEventListener('click', () => {
     openPopup(popupCards);
 });
 
-//слушатель событий для закрытия попапа добавления карточек
+//слушатель событий для закрытия попапа добавления карточек по крестику
 buttonCloseAdd.addEventListener('click', () => {
     closePopup(popupCards);
 });
