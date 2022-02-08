@@ -4,6 +4,7 @@
   font-weight: normal;
   font-size: 12px;
   line-height: 15px;
+  box-sizing: border-box;
   color: #FF0000;
   display: none;
 }

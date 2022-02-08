@@ -17,3 +17,7 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+.popup__input:invalid {
+  margin-top: 13px;
+}

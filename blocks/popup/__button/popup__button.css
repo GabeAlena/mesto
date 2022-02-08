@@ -29,7 +29,3 @@
     margin-top: 41px;
   }
 }
-
-.popup__button:valid {
-  margin-top: 0;
-}
