@@ -42,23 +42,23 @@
             <form class="popup__form" name="popup__form" novalidate>
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <fieldset class="popup__info">
-                    <input 
+                    <input
+                        class="popup__input popup__input_type_name" 
                         required
                         minlength="2"
                         maxlength="40"
                         id="name-input"
                         type="text" 
-                        class="popup__input popup__input_type_name" 
                         name="name"
                     >
                     <span class="name-input-error popup__input-error">Вы пропустили это поле.</span>
-                    <input 
+                    <input
+                        class="popup__input popup__input_type_job" 
                         required
                         minlength="2"
                         maxlength="200"
                         id="job-input"
                         type="text" 
-                        class="popup__input popup__input_type_job" 
                         name="job"
                     >
                     <span class="job-input-error popup__input-error">Вы пропустили это поле.</span>
@@ -74,22 +74,22 @@
             <form class="popup__form" name="popup__form" novalidate>
                 <h2 class="popup__title">Новое место</h2>
                 <fieldset class="popup__info">
-                    <input 
+                    <input
+                        class="popup__input popup__input_type_nameimage" 
                         required
                         minlength="2"
                         maxlength="30"
                         id="mesto-input"
                         type="text" 
-                        class="popup__input popup__input_type_nameimage" 
                         placeholder="Название"
                         name="name"
                     >
                     <span class="mesto-input-error popup__input-error">Вы пропустили это поле.</span>
-                    <input 
+                    <input
+                        class="popup__input popup__input_type_image"
                         required
                         type="url"
                         id="url-input"
-                        class="popup__input popup__input_type_image"
                         placeholder="Ссылка на картинку" 
                         name="image"
                     >
@@ -123,8 +123,7 @@
         </section>
     </template>
 
-
-    <!--<script src='./script/validate.js'></script>-->
+    <script src='./scripts/validate.js'></script>
     <script src='./scripts/index.js'></script>
 </body>
 

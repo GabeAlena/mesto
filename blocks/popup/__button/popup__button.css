@@ -1,4 +1,7 @@
 .popup__button {
+  background-color: #000000;
+  color: white;
+  border-radius: 2px;
   margin: 0;
   margin-top: 43px;
   padding: 0;
@@ -11,9 +14,6 @@
   border: 0;
   width: 100%;
   min-height: 50px;
-  background-color: #000000;
-  color: white;
-  border-radius: 2px;
   cursor: pointer;
 }
 
@@ -28,4 +28,8 @@
     line-height: 17px;
     margin-top: 41px;
   }
+}
+
+.popup__button:valid {
+  margin-top: 0;
 }
