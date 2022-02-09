@@ -1,5 +1,4 @@
 //константы для изменения данных профиля
-const popup = document.querySelector('.popup');
 const buttonProfileInfoEdit = document.querySelector('.profile__edit-button');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
@@ -10,37 +9,36 @@ const formProfile = popupProfile.querySelector('.popup__form');
 const nameInput = popupProfile.querySelector('.popup__input_type_name');
 const jobInput = popupProfile.querySelector('.popup__input_type_job');
 
-function overlayClick(event) {
-    if (event.target === this) {
-        const popupClose = document.querySelector('.popup_active')
-        closePopup(popupClose);
+function handleOverlayClick(event) {
+    if (event.target === event.currentTarget) {
+        closePopup(event.target);
     }
 }
-function closePopupKeydown(event) {
+function closePopupEsc(event) {
     if (event.code === 'Escape') {
-        const keydownClose = document.querySelector('.popup_active')
-        closePopup(keydownClose);
+        const openedPopup = document.querySelector('.popup_active')
+        closePopup(openedPopup);
     }
 }
 const openPopup = (element) => {
     document.body.style.overflow = 'hidden';
     element.classList.add(popupActiveClass);
-    document.addEventListener('keydown', closePopupKeydown);
-    element.addEventListener('click', overlayClick);
+    document.addEventListener('keydown', closePopupEsc);
+    element.addEventListener('click', handleOverlayClick);
 }
 const closePopup = (element) => {
     document.body.style.overflow = '';
     element.classList.remove(popupActiveClass);
-    document.addEventListener('keydown', closePopupKeydown);
-    element.addEventListener('click', overlayClick);
+    document.removeEventListener('keydown', closePopupEsc);
+    element.removeEventListener('click', handleOverlayClick);
 }
 
 //константы открытия модального окна
-const popupModal = document.querySelector('.popup_modal');
-const modalClose = popupModal.querySelector('.popup__close-btn');
-const imageModal = popupModal.querySelector('.popup__image-modal');
-const titleModal = popupModal.querySelector('.popup__title-modal');
-const imageNameModal = popupModal.querySelector('.popup__title-modal');
+const imagePopup = document.querySelector('.popup_modal');
+const imagePopupCloseBtn = imagePopup.querySelector('.popup__close-btn');
+const popupPicture = imagePopup.querySelector('.popup__image-modal');
+const titleModal = imagePopup.querySelector('.popup__title-modal');
+const imageNameModal = imagePopup.querySelector('.popup__title-modal');
 
 //константы для добавления новых карточек
 const buttonAddElement = document.querySelector('.profile__add-button');
@@ -48,6 +46,9 @@ const popupCards = document.querySelector('.popup_cards');
 const buttonCloseAdd = popupCards.querySelector('.popup__close-btn');
 const formCards = popupCards.querySelector('.popup__form');
 const elementsContainer = document.querySelector('.elements-container');
+const nameAddInput = document.querySelector('.popup__input_type_nameimage');
+const imageAddInput = document.querySelector('.popup__input_type_image');
+const cardCreateBtn = popupCards.querySelector('.popup__button');
 const initialCards = [
     {
         name: 'Архыз',
@@ -92,7 +93,7 @@ buttonCloseProfile.addEventListener('click', () => {
 });
 
 //создание функции для ввода новых данных профиля
-function submitHandlerForm(event) {
+function handleProfileFormSubmit(event) {
     event.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
@@ -100,7 +101,7 @@ function submitHandlerForm(event) {
 };
 
 //слушатель событий для кноки "сохранить" попапа редактирования профиля
-formProfile.addEventListener('submit', submitHandlerForm);
+formProfile.addEventListener('submit', handleProfileFormSubmit);
 
 //слушатель событий для открытия попапа добавления карточек
 buttonAddElement.addEventListener('click', () => {
@@ -143,10 +144,10 @@ function createCard(name, link) {
 
     //вызов модального окна
     imageElement.addEventListener('click', () => {
-        imageModal.src = link;
+        popupPicture.src = link;
         titleModal.textContent = name;
         imageNameModal.alt = name;
-        openPopup(popupModal);
+        openPopup(imagePopup);
     });
     
     return pictureElement;
@@ -162,21 +163,30 @@ initialCards.forEach(function(pictureElement) {
 });
 
 //закрытие модального окна
-modalClose.addEventListener('click', () => {
-    closePopup(popupModal);
+imagePopupCloseBtn.addEventListener('click', () => {
+    closePopup(imagePopup);
 });
 
+// функция, которая делает кнопку отправки неактивной
+function disableSubmitBtn() {
+    cardCreateBtn.classList.add('popup__button_disabled');
+    cardCreateBtn.disabled = true;
+}
+
 //добавление новой карточки на страницу
-function submitHandlerFormAdd(event) {
+function handleProfileFormSubmitAdd(event) {
     event.preventDefault();
-    const nameAddInput = document.querySelector('.popup__input_type_nameimage');
-    const imageAddInput = document.querySelector('.popup__input_type_image');
     const card = {
         name: nameAddInput.value,
         link: imageAddInput.value
     };
     addCard(elementsContainer, card);
     closePopup(popupCards);
+
+    // сброс данных формы добавления картинки
+    nameAddInput.value = '';
+    imageAddInput.value = '';
+    disableSubmitBtn();
 };
 
-formCards.addEventListener('submit', submitHandlerFormAdd);
+formCards.addEventListener('submit', handleProfileFormSubmitAdd);

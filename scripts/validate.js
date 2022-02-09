@@ -66,10 +66,12 @@ const toggleButtonState = (inputList, buttonElement) => {
   // Если функция hasInvalidInput вернула истину, значит есть некорректные поля,
   // то нужно добавить класс, который оформляет кнопку в состояние неактивной
     buttonElement.classList.add(validationConfig.inactiveButtonClass);
+    buttonElement.setAttribute("disabled", "disabled");
   } else {
   // Если функция hasInvalidInput вернула ложь, то есть все поля заполнены корректно,
   // то нужно удалить класс который оформляет кнопку в состояние неактивной.
     buttonElement.classList.remove(validationConfig.inactiveButtonClass);
+    buttonElement.removeAttribute("disabled");
   }
 }; 
 
@@ -121,4 +123,4 @@ const enableValidation = () => {
 };
 
 // При загрузке страницы произойдет вызов функции enableValidation()
-enableValidation(validationConfig); 
+enableValidation(); 
