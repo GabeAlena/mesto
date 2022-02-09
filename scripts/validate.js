@@ -105,9 +105,9 @@ const setEventListeners = (formElement) => {
 
 // нужно найти все формы и вызвать для них функцию setEventListeners. Объявим функцию
 // enableValidation, которая найдет и переберет все формы на странице
-const enableValidation = () => {
+const enableValidation = (argumentEnableValidation) => {
   // Получаем коллекцию всех форм документа. Преобразуем его в массив 
-  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector)); 
+  const formList = Array.from(document.querySelectorAll(argumentEnableValidation.formSelector)); 
 
   // Перебираем все найденные формы.
   formList.forEach((formElement) => {       
@@ -123,4 +123,4 @@ const enableValidation = () => {
 };
 
 // При загрузке страницы произойдет вызов функции enableValidation()
-enableValidation(); 
+enableValidation(validationConfig); 
