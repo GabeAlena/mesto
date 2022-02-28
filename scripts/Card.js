@@ -10,6 +10,7 @@ export class Card {
 
     _deleteCard = () => {
         this._pictureElement.remove();
+        this._pictureElement = null;
     };
      
     _clickLike = () => {
@@ -33,11 +34,10 @@ export class Card {
     _fillCard() {
         const titleElement = this._pictureElement.querySelector('.element__title');
         const imageElement = this._pictureElement.querySelector('.element__image');
-        const imageNameElement = this._pictureElement.querySelector('.element__image');
     
         titleElement.textContent = this._name;
         imageElement.src = this._link;
-        imageNameElement.alt = this._name;
+        imageElement.alt = this._name;
     };
 
     createCard() {

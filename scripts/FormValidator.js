@@ -31,6 +31,11 @@ export class FormValidator {
         errorElement.textContent = '';
     };
 
+    //функция, которая делает кнопку отправки неактивной
+    disableSubmitBtn() {
+        this._toggleButtonState();
+    };
+
     // функция, которая проверяет валидность поля
     _checkInputValidity = (inputElement) => {
         if (!inputElement.validity.valid) {
@@ -63,7 +68,7 @@ export class FormValidator {
 
     _setEventListeners() {             
         // блокируем кнопку сабмит при первом открытии попапа
-        this._toggleButtonState();                  
+        this._toggleButtonState();            
 
         this._inputList.forEach((inputElement) => {  
             inputElement.addEventListener('input', () => {  
@@ -76,9 +81,9 @@ export class FormValidator {
     
     enableValidation() {
           this._formElement.addEventListener('submit', (evt) => {
-            evt.preventDefault();                                         
+            evt.preventDefault();       
           });
           
-          this._setEventListeners();                                               
+          this._setEventListeners();
     };
 }

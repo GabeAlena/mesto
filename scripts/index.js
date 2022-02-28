@@ -44,7 +44,6 @@ buttonCloseAdd.addEventListener('click', () => {
     closePopup(popupCards);
 });
 
-//слушатель событий для закрытия модального окна
 imagePopupCloseBtn.addEventListener('click', () => {
     closePopup(imagePopup);
 });
@@ -63,18 +62,13 @@ const cardSelector = '#add-picture-template';
 function addCard(data) {
     const card = new Card(data, cardSelector);
     const cardElement = card.createCard();
-    elementsContainer.prepend(cardElement);
+
+    return cardElement;
 };
 
 initialCards.forEach(function(data) {
-    addCard(data);
+    elementsContainer.append(addCard(data));
 });
-
-// функция, которая делает кнопку отправки неактивной
-function disableSubmitBtn() {
-    cardCreateBtn.classList.add('popup__button_disabled');
-    cardCreateBtn.disabled = true;
-};
 
 //добавление новой карточки на страницу
 function handleProfileFormSubmitAdd(event) {
@@ -84,13 +78,12 @@ function handleProfileFormSubmitAdd(event) {
         link: imageAddInput.value
     };
 
-    addCard(card);
+    elementsContainer.prepend(addCard(card));
     closePopup(popupCards);
 
     // сброс данных формы добавления картинки
-    nameAddInput.value = '';
-    imageAddInput.value = '';
-    disableSubmitBtn();
+    formCards.reset();
+    addElementValidator.disableSubmitBtn();
 };
 
 formCards.addEventListener('submit', handleProfileFormSubmitAdd);
