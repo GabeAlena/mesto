@@ -39,7 +39,6 @@ export const imagePopup = document.querySelector('.popup_modal');
 export const imagePopupCloseBtn = imagePopup.querySelector('.popup__close-btn');
 export const popupPicture = imagePopup.querySelector('.popup__image-modal');
 export const titleModal = imagePopup.querySelector('.popup__title-modal');
-export const imageNameModal = imagePopup.querySelector('.popup__title-modal');
 
 //константы данных профиля
 export const profileName = document.querySelector('.profile__name');

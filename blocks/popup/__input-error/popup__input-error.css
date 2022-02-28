@@ -6,5 +6,7 @@
   line-height: 15px;
   box-sizing: border-box;
   color: #FF0000;
-  visibility: hidden;
+  min-height: 30px;
+  margin-top: 5px;
+  display: block;
 }

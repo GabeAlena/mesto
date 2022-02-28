@@ -1,5 +1,5 @@
 import { openPopup } from './utils.js';
-import { imagePopup, popupPicture, titleModal, imageNameModal } from './constants.js';
+import { imagePopup, popupPicture, titleModal } from './constants.js';
 
 export class Card {
     constructor(data, cardSelector) {
@@ -20,7 +20,7 @@ export class Card {
     _showImage = () => {
         popupPicture.src = this._link;
         titleModal.textContent = this._name;
-        imageNameModal.alt = this._name;
+        titleModal.alt = this._name;
         openPopup(imagePopup);
     };
 
