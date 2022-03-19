@@ -34,6 +34,9 @@ export const initialCards = [
     }
 ];
 
+//новая константа (общий крестик для всех попапов)
+export const popupCloseBtn = document.querySelector('.popup__close-btn');
+
 //константы модального окна, большой фотографии
 export const imagePopup = document.querySelector('.popup_modal');
 export const imagePopupCloseBtn = imagePopup.querySelector('.popup__close-btn');

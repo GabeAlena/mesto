@@ -1,4 +1,4 @@
-import { popupActiveClass } from './constants.js';
+/*import { popupActiveClass } from './constants.js';
 
 export const openPopup = (element) => {
     document.body.style.overflow = 'hidden';
@@ -26,3 +26,4 @@ export const closePopup = (element) => {
     document.removeEventListener('keydown', closePopupEsc);
     element.removeEventListener('click', handleOverlayClick);
 }
+*/

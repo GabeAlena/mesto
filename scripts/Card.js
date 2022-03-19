@@ -1,4 +1,7 @@
-import { openPopup } from './utils.js';
+// Необходимо связать класс Кард с попапом. Нужно сделать так, чтобы Кард принимал в конструтор функцию handleCardClick
+//Эта функция должна открывать попап с картинкой при клиек на карточку
+
+import Popup from './Popup.js';
 import { imagePopup, popupPicture, titleModal } from './constants.js';
 
 export class Card {

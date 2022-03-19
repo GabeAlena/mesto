@@ -34,6 +34,9 @@ export class FormValidator {
     //функция, которая делает кнопку отправки неактивной
     disableSubmitBtn() {
         this._toggleButtonState();
+        this._inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement);
+        });
     };
 
     // функция, которая проверяет валидность поля
