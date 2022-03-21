@@ -4,16 +4,39 @@
   "description": "Данный сайт это сервис Mesto: интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки. В данной версии сайта, по сравнению с предыдущей, можно как редактировать профиль, так и добавлять фотографии. Сайт состоит из следующих блоков: **header**,  **profile**, **elements**, **footer**.  Блок **profile** содержит данные пользователя, с возможностью их изменения, то есть при клике на значок \"редактирования профиля\" вылезает попап окно. Данное всплывающее окно содержит кнопку submit, которая дает возможность редактировать данные профиля, а также кнопку крестик, которая дает возможность закрыть попап окно без редактирования профиля. Закрыть форму редактирования профиля возможно, помимо нажатия на кнопку submit, путем нажатия на кнопку \"Esc\" и на свободное пространство вокруг формы. Возможность клика по кнопкам реализована при помощи слушателя событий JavaScript - *addEventListener*. Данные формы \"редактировать профиль\" проходят валидацию, то есть при неправильно введенных данных форма не позволит изменить профиль (о чем говорит серый/неактивный вид кнопки).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GabeAlena/mesto.git"
   },
-  "author": "",
+  "author": "Gabe Alena",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/GabeAlena/mesto/issues"
   },
-  "homepage": "https://github.com/GabeAlena/mesto#readme"
+  "homepage": "https://github.com/GabeAlena/mesto#readme",
+  "keywords": [
+    "mesto",
+    "webpack"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "autoprefixer": "^10.4.4",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
+    "cssnano": "^5.1.4",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "postcss-loader": "^6.2.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "dependencies": {
+    "core-js": "^3.21.1"
+  }
 }
