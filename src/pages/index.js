@@ -2,11 +2,9 @@ import './index.css';
 
 import { FormValidator } from '../scripts/FormValidator.js';
 import { validationConfig, initialCards, imagePopup,
-         profileName, profileJob,
-         buttonCloseProfile, formProfile, nameInput,
-         jobInput, imagePopupCloseBtn, popupCards,
-         buttonCloseAdd, formCards, elementsContainer,
-         nameAddInput, imageAddInput, cardCreateBtn,
+         profileName, profileJob, nameInput,
+         jobInput, popupCards,formCards, 
+         elementsContainer, nameAddInput, imageAddInput,
          buttonProfileInfoEdit, buttonAddElement, popupProfile} from '../scripts/constants.js';
 import { Card } from '../scripts/Card.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
@@ -55,10 +53,7 @@ buttonProfileInfoEdit.addEventListener('click', () => {
 });
 //--------------------------------------------------------------------------------
 
-//создаем экземпляр формы добавления карточки
-const popupAddCard = new PopupWithForm(popupCards, handleProfileFormSubmitAdd);
-popupAddCard.setEventListeners();
-
+//--------------------------------------------------------------------------------
 //создаем экземпляр попапа на открытие картинки
 const popupBigImage = new PopupWithImage(imagePopup);
 popupBigImage.setEventListeners();
@@ -67,46 +62,51 @@ popupBigImage.setEventListeners();
 const section = new Section({
     items: initialCards,
     renderer: (data) => {
-        const card = new Card(data, '#add-picture-template');
+        const card = new Card(data, '#add-picture-template', () => {
+            popupBigImage.open(data.link, data.name);
+        });
         const cardElement = card.createCard();
         section.addItem(cardElement);
     }
 }, elementsContainer);
 
 section.renderItems();
+//--------------------------------------------------------------------------------
 
-/*//слушатель событий для открытия попапа добавления карточек
+//--------------------------------------------------------------------------------
+//создаем экземпляр формы добавления карточки
+const popupAddCard = new PopupWithForm(popupCards, handleProfileFormSubmitAdd);
+popupAddCard.setEventListeners();
+
+//слушатель событий для открытия попапа добавления карточек
 buttonAddElement.addEventListener('click', () => {
-    popupCards.open();
+    popupAddCard.open();
 });
-*/
-const cardSelector = '#add-picture-template';
-
-/*//функция добавления карточки в контейнер
-function addCard(data) {
-    const card = new Card(data, cardSelector);
-    const cardElement = card.createCard();
-
-    return cardElement;
-};*/
 
 //добавление новой карточки на страницу
-function handleProfileFormSubmitAdd(event) {
-    event.preventDefault();
+function handleProfileFormSubmitAdd() {
     const card = {
         name: nameAddInput.value,
         link: imageAddInput.value
     };
 
     elementsContainer.prepend(addCard(card));
-    popupCards.close();
+    popupAddCard.close();
 
     // сброс данных формы добавления картинки
     formCards.reset();
     addElementValidator.disableSubmitBtn();
 };
 
-formCards.addEventListener('submit', handleProfileFormSubmitAdd);
+//функция добавления карточки в контейнер
+function addCard(data) {
+    const card = new Card(data, '#add-picture-template');
+    const cardElement = card.createCard();
+
+    return cardElement;
+};
+//--------------------------------------------------------------------------------
+
 
 /*import { FormValidator } from './FormValidator.js';
 import { validationConfig, initialCards, imagePopup,
