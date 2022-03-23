@@ -13,7 +13,6 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  mix-blend-mode: exclusion;
 }
   
 .element__trash:hover {
