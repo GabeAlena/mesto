@@ -58,16 +58,22 @@ buttonProfileInfoEdit.addEventListener('click', () => {
 const popupBigImage = new PopupWithImage(imagePopup);
 popupBigImage.setEventListeners();
 
+const generateCard = (data) => {
+    const card = new Card(data, '#add-picture-template', () => {
+        popupBigImage.open(data.link, data.name);
+    });
+    return card.createCard();
+};
+
+const renderCard = (data) => {
+    const addCardElement = generateCard(data);
+    section.addItem(addCardElement);
+};
+
 //создаем экземпляр section и отрисовываем карточки из массива
 const section = new Section({
     items: initialCards,
-    renderer: (data) => {
-        const card = new Card(data, '#add-picture-template', () => {
-            popupBigImage.open(data.link, data.name);
-        });
-        const cardElement = card.createCard();
-        section.addItem(cardElement);
-    }
+    renderer: renderCard
 }, elementsContainer);
 
 section.renderItems();
@@ -85,23 +91,15 @@ buttonAddElement.addEventListener('click', () => {
 
 //добавление новой карточки на страницу
 function handleProfileFormSubmitAdd() {
-    const card = {
+    const card = generateCard({
         name: nameAddInput.value,
         link: imageAddInput.value
-    };
+    });
 
-    elementsContainer.prepend(addCard(card));
+    section.addItem(card);
     popupAddCard.close();
 
     // сброс данных формы добавления картинки
     addElementValidator.disableSubmitBtn();
-};
-
-//функция добавления карточки в контейнер
-function addCard(data) {
-    const card = new Card(data, '#add-picture-template');
-    const cardElement = card.createCard();
-
-    return cardElement;
 };
 //--------------------------------------------------------------------------------
