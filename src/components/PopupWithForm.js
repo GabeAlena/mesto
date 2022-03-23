@@ -34,35 +34,3 @@ export default class PopupWithForm extends Popup {
         this._form.reset();
     };
 }
-
-/*
-const profileInfoEditValidator = new FormValidator(validationConfig, popupProfile);
-profileInfoEditValidator.enableValidation();
-
-function changeProfile() {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-};
-
-//слушатель событий для кнопки изменения данных профиля
-buttonProfileInfoEdit.addEventListener('click', () => {
-    changeProfile();
-    openPopup(popupProfile);
-});
-
-//слушатель событий для крестика попапа изменения данных профиля
-buttonCloseProfile.addEventListener('click', () => {
-    closePopup(popupProfile);
-});
-
-//слушатель событий для кноки "сохранить" попапа редактирования профиля
-formProfile.addEventListener('submit', handleProfileFormSubmit);
-
-//создание функции для ввода новых данных профиля
-function handleProfileFormSubmit(event) {
-    event.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
-    closePopup(popupProfile);
-};
-*/

@@ -1,4 +1,3 @@
-import { SourceMapGenerator } from "source-map-js/lib/source-map-generator";
 import Popup from './Popup.js';
 
 //Класс, который наследует от Popup. Этот класс должен перезаписывать родительский метод open.
