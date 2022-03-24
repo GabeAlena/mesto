@@ -81,12 +81,19 @@ export class FormValidator {
             });
         });
     };
-    
+
+     // метод который убирает ошибки при валидности полей
+    checkValidity = () => {
+      this._inputList.forEach((inputElement) => {
+        this._hideInputError(inputElement);
+      });
+    };  
+
     enableValidation() {
           this._formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();       
           });
-          
+
           this._setEventListeners();
     };
 }

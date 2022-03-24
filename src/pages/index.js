@@ -5,7 +5,7 @@ import { validationConfig, initialCards, imagePopup,
          profileName, profileJob, nameInput,
          jobInput, popupCards,formCards, 
          elementsContainer, nameAddInput, imageAddInput,
-         buttonProfileInfoEdit, buttonAddElement, popupProfile} from '../components/constants.js';
+         buttonProfileInfoEdit, buttonAddElement, popupProfile} from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -50,6 +50,7 @@ buttonProfileInfoEdit.addEventListener('click', () => {
     jobInput.value = data.selJob;
 
     popupProfileAboutUser.open();
+    profileInfoEditValidator.checkValidity();
 });
 //--------------------------------------------------------------------------------
 
@@ -87,6 +88,7 @@ popupAddCard.setEventListeners();
 //слушатель событий для открытия попапа добавления карточек
 buttonAddElement.addEventListener('click', () => {
     popupAddCard.open();
+    addElementValidator.checkValidity();
 });
 
 //добавление новой карточки на страницу
