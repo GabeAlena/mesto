@@ -26,6 +26,8 @@
 @import url(../blocks/element/__like/_active/element__like_active.css);
 @import url(../blocks/element/__trash/element__trash.css);
 @import url(../blocks/element/__trash-image/element__trash-image.css);
+@import url(../blocks/element/__like-numberLike/element__like-numberLike.css);
+@import url(../blocks/element/__numberLike/element__numberLike.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
