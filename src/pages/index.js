@@ -1,12 +1,13 @@
 import './index.css';
-
+import { Api } from '../components/Api.js';
 import { FormValidator } from '../components/FormValidator.js';
-import { validationConfig, initialCards, imagePopup,
-         profileName, profileJob, nameInput,
-         jobInput, popupCards,formCards, 
+import { validationConfig, initialCards, imagePopup, trashButton,
+         profileName, profileJob, nameInput, popupAvatar, popupDeleteCard,
+         jobInput, popupCards,formCards, avatarChange, profileAvatarButton,
          elementsContainer, nameAddInput, imageAddInput,
          buttonProfileInfoEdit, buttonAddElement, popupProfile} from '../utils/constants.js';
 import { Card } from '../components/Card.js';
+import Popup from '../components/Popup.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
@@ -18,6 +19,9 @@ addElementValidator.enableValidation();
 
 const profileInfoEditValidator = new FormValidator(validationConfig, popupProfile);
 profileInfoEditValidator.enableValidation();
+
+const changeAvatarValidator = new FormValidator(validationConfig, popupAvatar);
+changeAvatarValidator.enableValidation();
 
 //--------------------------------------------------------------------------------
 //Создаем экземпляр элемента имени пользователя и информации о себе
@@ -105,3 +109,24 @@ function handleProfileFormSubmitAdd() {
     addElementValidator.disableSubmitBtn();
 };
 //--------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------
+//Будем создавать для каждого попапа новый экземпляр класса
+const popupChangeAvatar = new PopupWithForm(popupAvatar);
+popupChangeAvatar.setEventListeners();
+
+//слушатель событий для открытия попапа добавления карточек
+profileAvatarButton.addEventListener('click', () => {
+    popupChangeAvatar.open();
+    changeAvatarValidator.checkValidity();
+});
+//--------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------
+const popupForDeleteCard = new PopupWithForm(popupDeleteCard);
+popupForDeleteCard.setEventListeners();
+
+//слушатель который открывает попап с вопросом об удалении карточки при нажатии на мусорку
+trashButton.addEventListener('click', () => {
+    popupForDeleteCard.open();
+});
