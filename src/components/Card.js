@@ -41,16 +41,16 @@ export class Card {
     _setEventListeners() {
         // слушатели для кнопки лайка, мусорки и картинки
         this._elementLike.addEventListener('click', this._clickLike);
-        /*this._elementTrash.addEventListener('click', this._deleteCard);*/ //удаление карточки по клику на мусорку
+        this._elementTrash.addEventListener('click', this._deleteCard); //удаление карточки по клику на мусорку
         this._elementImage.addEventListener('click', () => {
             this._handleCardClick(this._name, this._link);
         });
     };
 
-    /*_deleteCard = () => { // метод для удаления карточки по клику на мусорку - 8 работа
+    _deleteCard = () => { // метод для удаления карточки по клику на мусорку - 8 работа
         this._element.remove();
         this._element = null;
-    };*/
+    };
 
     _clickLike = () => {
         this._elementLike.classList.toggle('element__like_active');

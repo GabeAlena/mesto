@@ -1,5 +1,5 @@
 import './index.css';
-import { Api } from '../components/Api.js';
+import { api } from '../components/Api.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { validationConfig, initialCards, imagePopup, trashButton,
          profileName, profileJob, nameInput, popupAvatar, popupDeleteCard,
@@ -27,8 +27,32 @@ changeAvatarValidator.enableValidation();
 //Создаем экземпляр элемента имени пользователя и информации о себе
 const userInfo = new UserInfo({
     selectorName: '.profile__name', 
-    selectorJob: '.profile__job'
+    selectorJob: '.profile__job',
+    selectorAvatar: '.profile__avatar'
 });
+
+//получаем данные профиля с сервера
+api.getUserInfo()
+  .then(res => {
+    userInfo.setUserInfo(res.name, res.about);
+    userInfo.setAvatar(res.avatar);
+    api.userId = result._id;
+  })
+  .catch((err) => {
+      console.log(err);
+  });
+
+//получаем данные карточек с сервера
+api.getInitialCards()
+  .then(cardList => {
+    cardList.forEach(data => {
+        const addCardElement = generateCard(data);
+        section.addItem(addCardElement);
+    })
+  })
+  .catch((err) => {
+      console.log(err);
+  });
 
 //Будем создавать для каждого попапа новый экземпляр класса
 const popupProfileAboutUser = new PopupWithForm(popupProfile, handleProfileSubmit);
@@ -36,11 +60,17 @@ popupProfileAboutUser.setEventListeners();
 
 //Функция редактирования профиля, которая принимает новые данные пользователя
 //и добавляет их на страницу
-function handleProfileSubmit({name, job}) {
-    profileName.textContent = name;
-    profileJob.textContent = job;
+function handleProfileSubmit(data) {
+    const { name, job } = data;
 
-    userInfo.setUserInfo(name, job);
+    api.editProfileData(name, job)
+      .then(res => {
+        userInfo.setUserInfo(name, job);
+      })
+      .catch((err) => {
+          console.log(err);
+      });
+
     popupProfileAboutUser.close();
 };
 
@@ -63,6 +93,11 @@ buttonProfileInfoEdit.addEventListener('click', () => {
 const popupBigImage = new PopupWithImage(imagePopup);
 popupBigImage.setEventListeners();
 
+const renderCard = (data) => {
+    const addCardElement = generateCard(data);
+    section.addItem(addCardElement);
+};
+
 const generateCard = (data) => {
     const card = new Card(data, '#add-picture-template', () => {
         popupBigImage.open(data.link, data.name);
@@ -70,14 +105,9 @@ const generateCard = (data) => {
     return card.createCard();
 };
 
-const renderCard = (data) => {
-    const addCardElement = generateCard(data);
-    section.addItem(addCardElement);
-};
-
 //создаем экземпляр section и отрисовываем карточки из массива
 const section = new Section({
-    items: initialCards,
+    items: [],
     renderer: renderCard
 }, elementsContainer);
 
@@ -123,10 +153,10 @@ profileAvatarButton.addEventListener('click', () => {
 //--------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------
-const popupForDeleteCard = new PopupWithForm(popupDeleteCard);
+/*const popupForDeleteCard = new PopupWithForm(popupDeleteCard);
 popupForDeleteCard.setEventListeners();
 
 //слушатель который открывает попап с вопросом об удалении карточки при нажатии на мусорку
 trashButton.addEventListener('click', () => {
     popupForDeleteCard.open();
-});
+});*/
