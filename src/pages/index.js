@@ -135,9 +135,9 @@ const generateCard = (data) => {
       '#add-picture-template', 
       () => {
         popupBigImage.open(data.link, data.name);
-      },
+      },/*
       (id) => {
-        console.log('clicked button')  ;
+        console.log('clicked button trash');
         console.log(id);  
         popupForDeleteCard.open();
         popupForDeleteCard.changeSubmitHandler(() => {
@@ -151,8 +151,9 @@ const generateCard = (data) => {
                 console.log(err);
               })
         })
-      },
+      },*/
       (id) => {
+        console.log('clicked like');  
         console.log(id);  
         if(card.isLiked()) {
             api.deleteLike(id)
@@ -220,6 +221,11 @@ buttonAddElement.addEventListener('click', () => {
     addElementValidator.checkValidity();
     popupAddCard.open();
 });
+
+/*const popupForDeleteCard = new PopupWithForm(popupDeleteCard, () => {
+    console.log('delete');
+});
+popupForDeleteCard.setEventListeners();*/
 
 /*function handleProfileFormSubmitAdd(data) {
     api.postNewCard(nameAddInput.value, imageAddInput.value)

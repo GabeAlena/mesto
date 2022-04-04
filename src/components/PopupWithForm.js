@@ -18,10 +18,10 @@ export class PopupWithForm extends Popup {
       return this._formValues;
     };
 
-    //для удаления своей карточки по мусорке
+    /*//для удаления своей карточки по мусорке
     changeSubmitHandler(newSubmitCallbackForm) {
         this._submitCallbackForm = newSubmitCallbackForm;
-    }
+    }*/
 
     //Перезаписывает родительский метод setEvenetListeners. Данный метод должен не только добавлять обработчик клика иконке закрытия, 
     // но и добавлять обработчик сабмита формы

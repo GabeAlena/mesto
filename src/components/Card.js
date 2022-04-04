@@ -1,5 +1,5 @@
 export class Card {
-    constructor(data, cardSelector, handleCardClick, handleLikeClick, handleDeleteClick) {
+    constructor(data, cardSelector, handleCardClick, handleLikeClick/*, handleDeleteClick*/) {
         this._name = data.name;
         this._link = data.link;
         this._likes = data.likes;
@@ -9,7 +9,7 @@ export class Card {
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
         this._handleLikeClick = handleLikeClick;
-        this._handleDeleteClick = handleDeleteClick;
+        /*this._handleDeleteClick = handleDeleteClick;*/
     };
 
     _getTemplate() {
@@ -22,7 +22,7 @@ export class Card {
           return pictureElement;
     }
     
-    /*isLiked = () => {
+    isLiked = () => {
         const userHasLikedCard = this._likes.find(user => user._id === this._userId);
         
         return userHasLikedCard;
@@ -38,7 +38,7 @@ export class Card {
         } else {
             this._handleDislikeIcon();
         }
-    }*/
+    }
 
     createCard() {
         this._element = this._getTemplate();
@@ -49,7 +49,7 @@ export class Card {
         this._fillCard();
         this._setEventListeners();
 
-       /* this.setLikes(this._likes);*/
+        this.setLikes(this._likes);
         return this._element;
     };
 
@@ -67,18 +67,18 @@ export class Card {
         this._elementLike.addEventListener('click', () => {
             this._handleLikeClick(this._id);
         });
-        this._elementTrash.addEventListener('click', () => {
+        /*this._elementTrash.addEventListener('click', () => {
             this._handleDeleteClick(this._id);
-        });
+        });*/
         this._elementImage.addEventListener('click', () => {
             this._handleCardClick(this._name, this._link);
         });
     };
 
-    deleteCard = () => {
+    /*deleteCard = () => {
         this._element.remove();
         this._element = null;
-    };
+    };*/
      
     _handleLikeIcon = () => {
         this._elementLike.classList.add('element__like_active');
