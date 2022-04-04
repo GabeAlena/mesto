@@ -71,7 +71,7 @@ export const nameAddInput = document.querySelector('.popup__input_type_nameimage
 export const imageAddInput = document.querySelector('.popup__input_type_image');
 
 //константы смены аватара
-export const avatarChange = document.querySelector('.profile__avatar');
+export const profileAvatar = document.querySelector('.profile__avatar');
 export const popupAvatar = document.querySelector('.popup_avatar');
 export const profileAvatarButton = document.querySelector('.profile__avatar-button');
 export const avatarInput = popupAvatar.querySelector('.popup__input_type_avatar');

@@ -3,7 +3,7 @@ import { api } from '../components/Api.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { validationConfig, initialCards, imagePopup, trashButton,
          profileName, profileJob, nameInput, popupAvatar, popupDeleteCard,
-         jobInput, popupCards,formCards, avatarChange, profileAvatarButton,
+         jobInput, popupCards,formCards, profileAvatar, profileAvatarButton,
          elementsContainer, nameAddInput, imageAddInput, avatarInput,
          buttonProfileInfoEdit, buttonAddElement, popupProfile} from '../utils/constants.js';
 import { Card } from '../components/Card.js';
@@ -80,9 +80,22 @@ buttonProfileInfoEdit.addEventListener('click', () => {
 });
 //--------------------------------------------------------------------------------
 
-// НУЖНО НАПИСАТЬ ЛОГИКУ СМЕНЫ АВАТАРА, СЕЙЧАС ПРОСТО ОТКРЫВАЕТСЯ ПОПАП
-//Будем создавать для каждого попапа новый экземпляр класса
-const popupChangeAvatar = new PopupWithForm(popupAvatar);
+//--------------------------------------------------------------------------------
+//Функция редактирования аватара, которая принимает новый аватар и возвращает его на страницу
+const popupChangeAvatar = new PopupWithForm(popupAvatar, handleAvatarSubmit);
+function handleAvatarSubmit(data) {
+    const { avatar } = data;
+
+    api.patchAvatar(avatar)
+      .then((res) => {
+          console.log(res);
+          userInfo.setAvatar(avatar);
+      })
+      .catch((err) => console.log(err));  
+
+      popupChangeAvatar.close();
+};
+
 popupChangeAvatar.setEventListeners();
 
 //слушатель событий для изменения аватара
@@ -90,7 +103,7 @@ profileAvatarButton.addEventListener('click', () => {
     popupChangeAvatar.open();
     changeAvatarValidator.checkValidity();
 });
-
+//--------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------
 //создаем экземпляр попапа на открытие картинки
