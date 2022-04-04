@@ -4,7 +4,7 @@ import { FormValidator } from '../components/FormValidator.js';
 import { validationConfig, initialCards, imagePopup, trashButton,
          profileName, profileJob, nameInput, popupAvatar, popupDeleteCard,
          jobInput, popupCards,formCards, avatarChange, profileAvatarButton,
-         elementsContainer, nameAddInput, imageAddInput,
+         elementsContainer, nameAddInput, imageAddInput, avatarInput,
          buttonProfileInfoEdit, buttonAddElement, popupProfile} from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import {PopupWithForm} from '../components/PopupWithForm.js';
@@ -17,6 +17,9 @@ addElementValidator.enableValidation();
 
 const profileInfoEditValidator = new FormValidator(validationConfig, popupProfile);
 profileInfoEditValidator.enableValidation();
+
+const changeAvatarValidator = new FormValidator(validationConfig, popupAvatar);
+changeAvatarValidator.enableValidation();
 
 //--------------------------------------------------------------------------------
 //Создаем экземпляр элемента имени пользователя и информации о себе
@@ -32,8 +35,9 @@ let userId
 //1. получаем данные профиля с сервера
 api.getUserInfo()
   .then(res => {
+    console.log(res);  
     userInfo.setUserInfo(res.name, res.about);
-    /*userInfo.setAvatar(res.avatar);*/
+    userInfo.setAvatar(res.avatar);
 
     userId = res._id;
   })
@@ -75,6 +79,18 @@ buttonProfileInfoEdit.addEventListener('click', () => {
     profileInfoEditValidator.checkValidity();
 });
 //--------------------------------------------------------------------------------
+
+// НУЖНО НАПИСАТЬ ЛОГИКУ СМЕНЫ АВАТАРА, СЕЙЧАС ПРОСТО ОТКРЫВАЕТСЯ ПОПАП
+//Будем создавать для каждого попапа новый экземпляр класса
+const popupChangeAvatar = new PopupWithForm(popupAvatar);
+popupChangeAvatar.setEventListeners();
+
+//слушатель событий для изменения аватара
+profileAvatarButton.addEventListener('click', () => {
+    popupChangeAvatar.open();
+    changeAvatarValidator.checkValidity();
+});
+
 
 //--------------------------------------------------------------------------------
 //создаем экземпляр попапа на открытие картинки
@@ -153,16 +169,6 @@ const renderCard = (data) => {
     section.addItem(addCardElement);
 };
 
-//создаем экземпляр section и отрисовываем карточки из массива
-const section = new Section({
-    items: [],
-    renderer: renderCard
-}, elementsContainer);
-
-section.renderItems();
-//--------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------
 //создаем экземпляр формы добавления карточки
 const popupAddCard = new PopupWithForm(popupCards, handleProfileFormSubmitAdd);
 popupAddCard.setEventListeners();
@@ -173,6 +179,29 @@ buttonAddElement.addEventListener('click', () => {
     popupAddCard.open();
 });
 
+function handleProfileFormSubmitAdd() {
+    const card = generateCard({
+        name: nameAddInput.value,
+        link: imageAddInput.value
+    });
+
+    section.addItem(card);
+    popupAddCard.close();
+
+    // сброс данных формы добавления картинки
+    addElementValidator.disableSubmitBtn();
+};
+
+//создаем экземпляр section и отрисовываем карточки из массива
+const section = new Section({
+    items: [],
+    renderer: renderCard
+}, elementsContainer);
+
+section.renderItems();
+//--------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------
 /*//добавление новой карточки на страницу - ПОКА НЕ РАБОТАЕТ
 const handleProfileFormSubmitAdd = () => {
     api.postNewCard(nameAddInput.value, imageAddInput.value)
@@ -196,18 +225,7 @@ const handleProfileFormSubmitAdd = () => {
     addElementValidator.disableSubmitBtn();
 };*/
 
-function handleProfileFormSubmitAdd() {
-    const card = generateCard({
-        name: nameAddInput.value,
-        link: imageAddInput.value
-    });
 
-    section.addItem(card);
-    popupAddCard.close();
-
-    // сброс данных формы добавления картинки
-    addElementValidator.disableSubmitBtn();
-};
 //--------------------------------------------------------------------------------
 
 /*const addElementValidator = new FormValidator(validationConfig, formCards);

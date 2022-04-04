@@ -1,7 +1,8 @@
 export default class UserInfo {
-    constructor({ selectorName, selectorJob }) {
+    constructor({ selectorName, selectorJob, selectorAvatar }) {
       this._profileName = document.querySelector(selectorName);
       this._profileJob = document.querySelector(selectorJob);
+      this._profileAvatar = document.querySelector(selectorAvatar);
     };
 
     // Содержит публичный метод, который возвращает объект с данными пользователя. Этот метод пригодится когда данные
@@ -9,7 +10,8 @@ export default class UserInfo {
     getUserInfo = () => {
         return {
             selName: this._profileName.textContent,
-            selJob: this._profileJob.textContent
+            selJob: this._profileJob.textContent,
+            selAvatar: this._profileAvatar.src
         }
     };
 
@@ -18,6 +20,10 @@ export default class UserInfo {
         this._profileName.textContent = profileName;
         this._profileJob.textContent = profileJob;
     };
+
+    setAvatar(avatar) {
+        this._profileAvatar.src = avatar;
+    }
 }
 
 /*// Класс отвечает за управление отображением информации о пользователе на странице.

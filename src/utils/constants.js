@@ -74,6 +74,7 @@ export const imageAddInput = document.querySelector('.popup__input_type_image');
 export const avatarChange = document.querySelector('.profile__avatar');
 export const popupAvatar = document.querySelector('.popup_avatar');
 export const profileAvatarButton = document.querySelector('.profile__avatar-button');
+export const avatarInput = popupAvatar.querySelector('.popup__input_type_avatar');
 
 // константы мусорки и попапа для удаления карточки
 export const trashButton = document.querySelector('.element__trash');

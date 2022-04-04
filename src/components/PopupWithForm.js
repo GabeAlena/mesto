@@ -54,6 +54,7 @@ export class PopupWithForm extends Popup {
       return this._formValues;
     };
 
+    //для удаления своей карточки по мусорке
     changeSubmitHandler(newSubmitCallbackForm) {
         this._submitCallbackForm = newSubmitCallbackForm;
     }
