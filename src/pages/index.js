@@ -114,7 +114,7 @@ popupBigImage.setEventListeners();
 api.getInitialCards()
   .then(cardList => {
     cardList.forEach(data => {
-        const addCardElement = generateCard({
+        const card = generateCard({
             name: data.name,
             link: data.link,
             likes: data.likes,
@@ -122,21 +122,21 @@ api.getInitialCards()
             userId: userId,
             ownerId: data.owner._id
         });
-        section.addItem(addCardElement);
+        section.addItem(card);
     })
   })
   .catch((err) => {
       console.log(err);
   });
 
-  const generateCard = (data) => {
+const generateCard = (data) => {
     const card = new Card(
       data,
       '#add-picture-template', 
       () => {
         popupBigImage.open(data.link, data.name);
       },
-      /*(id) => {
+      (id) => {
         console.log('clicked button')  ;
         console.log(id);  
         popupForDeleteCard.open();
@@ -151,7 +151,7 @@ api.getInitialCards()
                 console.log(err);
               })
         })
-      },*/
+      },
       (id) => {
         console.log(id);  
         if(card.isLiked()) {
@@ -173,17 +173,46 @@ api.getInitialCards()
         }
       },
     );
-    
     return card.createCard();
 };
+
+//создаем экземпляр section и отрисовываем карточки из массива
+const section = new Section({
+    items: [],
+    renderer: renderCard
+}, elementsContainer);
 
 const renderCard = (data) => {
     const addCardElement = generateCard(data);
     section.addItem(addCardElement);
 };
 
+section.renderItems();
+
 //создаем экземпляр формы добавления карточки
-const popupAddCard = new PopupWithForm(popupCards, handleProfileFormSubmitAdd);
+const popupAddCard = new PopupWithForm(popupCards, (data) => {
+    api.postNewCard(nameAddInput.value, imageAddInput.value)
+    .then((res) => {
+      console.log(res);  
+      const card = generateCard({
+          name: res.name,
+          link: res.link,
+          likes: res.likes,
+          id: res._id,
+          userId: userId,
+          ownerId: res.owner._id
+      })
+      section.addItem(card);
+      popupAddCard.close();
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+  // сброс данных формы добавления картинки
+  addElementValidator.disableSubmitBtn();
+});
+
 popupAddCard.setEventListeners();
 
 //слушатель событий для открытия попапа добавления карточек
@@ -192,6 +221,30 @@ buttonAddElement.addEventListener('click', () => {
     popupAddCard.open();
 });
 
+/*function handleProfileFormSubmitAdd(data) {
+    api.postNewCard(nameAddInput.value, imageAddInput.value)
+      .then((res) => {
+        console.log(res);  
+        const card = generateCard({
+            name: data.name,
+            link: data.link,
+            likes: data.likes,
+            id: data._id,
+            userId: userId,
+            ownerId: data.owner._id
+        })
+        section.addItem(card);
+        popupAddCard.close();
+      })
+      .catch((err) => {
+          console.log(err);
+      })
+    
+    // сброс данных формы добавления картинки
+    addElementValidator.disableSubmitBtn();
+};*/
+
+/*//функция добавления новой карточки на страницу
 function handleProfileFormSubmitAdd() {
     const card = generateCard({
         name: nameAddInput.value,
@@ -203,15 +256,7 @@ function handleProfileFormSubmitAdd() {
 
     // сброс данных формы добавления картинки
     addElementValidator.disableSubmitBtn();
-};
-
-//создаем экземпляр section и отрисовываем карточки из массива
-const section = new Section({
-    items: [],
-    renderer: renderCard
-}, elementsContainer);
-
-section.renderItems();
+};*/
 //--------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------

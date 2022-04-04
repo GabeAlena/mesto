@@ -19,6 +19,6 @@ export class Section {
 
 // Публичный метод, который принимает дом-элемент и добавляет его в контейнер
     addItem = (element) => {
-        this._elementsContainer.prepend(element);
+        this._elementsContainer.append(element);
     };
 }
