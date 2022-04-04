@@ -135,7 +135,10 @@ const generateCard = (data) => {
       '#add-picture-template', 
       () => {
         popupBigImage.open(data.link, data.name);
-      },/*
+      },
+      (id) => {
+        console.log('clicked trash button just');
+      }/*,
       (id) => {
         console.log('clicked button trash');
         console.log(id);  
@@ -152,7 +155,7 @@ const generateCard = (data) => {
               })
         })
       },*/
-      (id) => {
+      /*(id) => {
         console.log('clicked like');  
         console.log(id);  
         if(card.isLiked()) {
@@ -172,7 +175,7 @@ const generateCard = (data) => {
                 console.log(err);
             })
         }
-      },
+      },*/
     );
     return card.createCard();
 };
@@ -222,11 +225,16 @@ buttonAddElement.addEventListener('click', () => {
     popupAddCard.open();
 });
 
-/*const popupForDeleteCard = new PopupWithForm(popupDeleteCard, () => {
+const popupForDeleteCard = new PopupWithForm(popupDeleteCard, () => {
     console.log('delete');
 });
-popupForDeleteCard.setEventListeners();*/
+popupForDeleteCard.setEventListeners();
 
+
+
+
+
+// старый код
 /*function handleProfileFormSubmitAdd(data) {
     api.postNewCard(nameAddInput.value, imageAddInput.value)
       .then((res) => {
