@@ -37,63 +37,63 @@ class Api {
 
     //добавление новой карточки
     postNewCard(name, link) {
-        const promise = fetch(`${this._baseUrl}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
                 name,
                 link
             })
-        });
-        return this._makeRequest(promise);
-    }
+        })
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    };
 
     //отображение количества лайков карточки
     getLikes() {
-        const promise = fetch(`${this._baseUrl}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
             method: 'GET',
             headers: this._headers
-        });
-        return this._makeRequest(promise);
-    }
+        })
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    };
 
     //удаление карточки
     deleteCard(id) {
-        const promise = fetch(`${this._baseUrl}/cards/${id}`, {
+        return fetch(`${this._baseUrl}/cards/${id}`, {
             method: 'DELETE',
             headers: this._headers
-        });
-        return this._makeRequest(promise);
-    }
+        })
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    };
 
     //постановка и снятие лайка
     putLike(id) {
-        const promise = fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'PUT',
             headers: this._headers
-        });
-        return this._makeRequest(promise);
-    }
+        })
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    };
 
     deleteLike(id) {
-        const promise = fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'DELETE',
             headers: this._headers
-        });
-        return this._makeRequest(promise);
-    }
+        })
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    };
 
     //обновление аватара пользователя
     patchAvatar(avatar) {
-        const promise = fetch(`${this._baseUrl}/users/me/avatar`, {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
                 avatar
             })
-        });
-        return this._makeRequest(promise);
-    }
+        })
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    };
 }
 
 export const api = new Api({
