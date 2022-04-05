@@ -137,25 +137,6 @@ const generateCard = (data) => {
         popupBigImage.open(data.link, data.name);
       },
       (id) => {
-        console.log('clicked trash button just');
-      }/*,
-      (id) => {
-        console.log('clicked button trash');
-        console.log(id);  
-        popupForDeleteCard.open();
-        popupForDeleteCard.changeSubmitHandler(() => {
-            api.deleteCard(id)
-              .then(res => {
-                  console.log(res);
-                  card.deleteCard();
-                  popupForDeleteCard.close();
-              })
-              .catch((err) => {
-                console.log(err);
-              })
-        })
-      },*/
-      /*(id) => {
         console.log('clicked like');  
         console.log(id);  
         if(card.isLiked()) {
@@ -175,7 +156,24 @@ const generateCard = (data) => {
                 console.log(err);
             })
         }
-      },*/
+      },
+      (id) => {
+        console.log('clicked button trash');
+        console.log(id);  
+        /*popupForDeleteCard.open();*/
+        popupForDeleteCard.changeSubmitHandler((id) => {
+            api.deleteCard(id)
+              .then(res => {
+                  console.log('yes');
+                  console.log(res);
+                  card.deleteCard();
+                  popupForDeleteCard.close();
+              })
+              .catch((err) => {
+                console.log(err);
+              })
+        })
+      }
     );
     return card.createCard();
 };

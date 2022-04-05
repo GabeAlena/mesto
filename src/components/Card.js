@@ -1,5 +1,5 @@
 export class Card {
-    constructor(data, cardSelector, handleCardClick/*, handleLikeClick*/, handleDeleteClick) {
+    constructor(data, cardSelector, handleCardClick, handleLikeClick, handleDeleteClick) {
         this._name = data.name;
         this._link = data.link;
         this._likes = data.likes;
@@ -8,7 +8,7 @@ export class Card {
         this._ownerId = data.ownerId;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
-        /*this._handleLikeClick = handleLikeClick;*/
+        this._handleLikeClick = handleLikeClick;
         this._handleDeleteClick = handleDeleteClick;
     };
 
@@ -28,7 +28,7 @@ export class Card {
         return userHasLikedCard;
     }
 
-    /*setLikes = (newLikes) => {
+    setLikes = (newLikes) => {
         this._likes = newLikes;
         const likeCountElement = this._element.querySelector('.element__numberLike');
         likeCountElement.textContent = this._likes.length;
@@ -38,7 +38,7 @@ export class Card {
         } else {
             this._handleDislikeIcon();
         }
-    }*/
+    }
 
     createCard() {
         this._element = this._getTemplate();
@@ -49,7 +49,7 @@ export class Card {
         this._fillCard();
         this._setEventListeners();
 
-        /*this.setLikes(this._likes);*/
+        this.setLikes(this._likes);
         return this._element;
     };
 
@@ -64,9 +64,9 @@ export class Card {
 
     _setEventListeners() {
         // слушатели для кнопки лайка, мусорки и картинки
-        /*this._elementLike.addEventListener('click', () => {
+        this._elementLike.addEventListener('click', () => {
             this._handleLikeClick(this._id);
-        });*/
+        });
         this._elementTrash.addEventListener('click', () => {
             this._handleDeleteClick(this._id);
         });
@@ -75,18 +75,18 @@ export class Card {
         });
     };
 
-    /*deleteCard = () => {
+    deleteCard() {
         this._element.remove();
         this._element = null;
-    };*/
+    };
      
-    /*_handleLikeIcon = () => {
+    _handleLikeIcon = () => {
         this._elementLike.classList.add('element__like_active');
     };
 
     _handleDislikeIcon = () => {
         this._elementLike.classList.remove('element__like_active');
-    }*/
+    }
 }
 
 /*// Необходимо связать класс Кард с попапом. Нужно сделать так, чтобы Кард принимал в конструтор функцию handleCardClick
