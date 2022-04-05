@@ -13,7 +13,7 @@ export class Section {
 // осуществляться функцией renderer
     renderItems = () => {
         this._initialCards.forEach(item => {
-            this._renderer(item/*, this._elementsContainer*/);
+            this._renderer(item);
         });
     };
 

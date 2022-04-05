@@ -1,4 +1,3 @@
-// Класс который отвечает за открытие и закрытие попапа. Принимает в конструтор селектор попапа
 export default class Popup {
     constructor(popupSelector) {
         this._popup = popupSelector;
