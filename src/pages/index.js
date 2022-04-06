@@ -29,10 +29,9 @@ const userInfo = new UserInfo({
 //--------------------------------------------------------------------------------
 //Загрузка информации о пользователе и карточек с сервера
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, items, res]) => {
+  .then(([userData, items]) => {
     userInfo.setUserInfo(userData);
     section.renderItems(items);
-    /*userId = res._id;*/
   })
   .catch((err) => {
     console.log(err);
@@ -152,7 +151,7 @@ const createCard = (data) => {
 
 const section = new Section({
   renderer: (item) => {
-    section.prependItem(createCard(item));
+    section.addItem(createCard(item));
   },
 }, elementsContainer);
 //--------------------------------------------------------------------------------
