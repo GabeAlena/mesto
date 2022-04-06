@@ -31,9 +31,9 @@ export class FormValidator {
         errorElement.textContent = '';
     };
 
-    //функция, которая делает кнопку отправки неактивной
-    disableSubmitBtn() {
-        this._toggleButtonState();
+    //сброс валидации
+    checkValidity = () => {
+        /*this._toggleButtonState();*/
         this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement);
         });
@@ -81,13 +81,6 @@ export class FormValidator {
             });
         });
     };
-
-     // метод который убирает ошибки при валидности полей
-    checkValidity = () => {
-      this._inputList.forEach((inputElement) => {
-        this._hideInputError(inputElement);
-      });
-    };  
 
     enableValidation() {
           this._formElement.addEventListener('submit', (evt) => {

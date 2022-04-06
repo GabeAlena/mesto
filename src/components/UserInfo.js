@@ -11,17 +11,16 @@ export class UserInfo {
         return {
             selName: this._profileName.textContent,
             selJob: this._profileJob.textContent,
-            selAvatar: this._profileAvatar.src
+            selAvatar: this._profileAvatar.src,
+            id: this._userId
         }
     };
 
     // Содержит публичный метод, который принимает новые данные пользователя и добавляет их на страницу
-    setUserInfo = (profileName, profileJob) => {
-        this._profileName.textContent = profileName;
-        this._profileJob.textContent = profileJob;
-    };
-
-    setAvatar = (avatar) => {
+    setUserInfo = ({ name, about, avatar, _id }) => {
+        this._profileName.textContent = name;
+        this._profileJob.textContent = about;
         this._profileAvatar.src = avatar;
-    }
+        this._userId = _id;
+    };
 }

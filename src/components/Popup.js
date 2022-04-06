@@ -1,6 +1,6 @@
 export default class Popup {
-    constructor(popupSelector) {
-        this._popup = popupSelector;
+    constructor(popup) {
+        this._popup = popup;
     };
 
     //Содержит публичные метод open, close которые отвечают за открытие и закрытие попапа
@@ -10,7 +10,6 @@ export default class Popup {
     };
 
     close() {
-        document.body.style.overflow = '';
         this._popup.classList.remove('popup_active');
         document.removeEventListener('keydown', this._handleEscClose);
     };
@@ -31,6 +30,6 @@ export default class Popup {
 
     //Содержит публичный метод который добавляет слушатель клика иконке закрытия попапа.
     setEventListeners() {
-        this._popup.addEventListener('click', this._handleOverlayAndClickClose);
+        this._popup.addEventListener('mousedown', this._handleOverlayAndClickClose);
     };
 };

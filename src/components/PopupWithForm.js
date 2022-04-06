@@ -1,8 +1,8 @@
 import Popup from './Popup.js';
 
 export class PopupWithForm extends Popup {
-    constructor(popupSelector, submitCallbackForm) {
-      super(popupSelector);
+    constructor(popup, submitCallbackForm) {
+      super(popup);
 
       this._submitCallbackForm = submitCallbackForm;
       this._form = this._popup.querySelector('.popup__form');
@@ -21,12 +21,18 @@ export class PopupWithForm extends Popup {
     };
 
     //Содержит приватный метод, который собирает данные всех полей формы
-    _getInputValues = () => {
+    getInputValues = () => {
       this._inputList.forEach((input) => {
           this._formValues[input.name] = input.value;
       });
       return this._formValues;
     };
+
+    /*setInputValues(data) {
+        this._inputList.forEach((input) => {
+            input.value = data[input.name];
+        });
+    }*/
 
     //Перезаписывает родительский метод setEvenetListeners. Данный метод должен не только добавлять обработчик клика иконке закрытия, 
     // но и добавлять обработчик сабмита формы
@@ -34,7 +40,8 @@ export class PopupWithForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            this._submitCallbackForm(this._getInputValues());
+            const data = this.getInputValues();
+            this._submitCallbackForm(data);
         });
     };
 

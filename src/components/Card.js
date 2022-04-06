@@ -1,12 +1,12 @@
 export class Card {
-    constructor(data, cardSelector, handleCardClick, handleLikeClick, handleDeleteClick) {
+    constructor(data, card, handleCardClick, handleLikeClick, handleDeleteClick) {
         this._name = data.name;
         this._link = data.link;
         this._likes = data.likes;
-        this._id = data.id;
+        this._id = data._id;
         this._userId = data.userId;
         this._ownerId = data.ownerId;
-        this._cardSelector = cardSelector;
+        this._card = card;
         this._handleCardClick = handleCardClick;
         this._handleLikeClick = handleLikeClick;
         this._handleDeleteClick = handleDeleteClick;
@@ -14,7 +14,7 @@ export class Card {
 
     _getTemplate() {
         const pictureElement = document
-          .querySelector(this._cardSelector)
+          .querySelector(this._card)
           .content
           .querySelector('.element')
           .cloneNode(true);
@@ -24,14 +24,12 @@ export class Card {
     
     isLiked = () => {
         const userHasLikedCard = this._likes.find(user => user._id === this._userId);
-        
         return userHasLikedCard;
     }
 
     setLikes = (newLikes) => {
         this._likes = newLikes;
-        const likeCountElement = this._element.querySelector('.element__numberLike');
-        likeCountElement.textContent = this._likes.length;
+        this._likeCountElement.textContent = this._likes.length;
 
         if(this.isLiked()) {
             this._handleLikeIcon();
@@ -45,6 +43,8 @@ export class Card {
         this._elementLike = this._element.querySelector('.element__like');
         this._elementTrash = this._element.querySelector('.element__trash');
         this._elementImage = this._element.querySelector('.element__image');
+        this._elementTitle = this._element.querySelector('.element__title');
+        this._likeCountElement = this._element.querySelector('.element__numberLike');
         
         this._fillCard();
         this._setEventListeners();
@@ -52,18 +52,15 @@ export class Card {
         this.setLikes(this._likes);
 
         if(this._ownerId !== this._userId) {
-            this._element.querySelector('.element__trash').style.display = 'none';
+            this._elementTrash.style.display = 'none';
         }
         return this._element;
     };
 
-    _fillCard() {
-        const titleElement = this._element.querySelector('.element__title');
-        const imageElement = this._element.querySelector('.element__image');
-    
-        titleElement.textContent = this._name;
-        imageElement.src = this._link;
-        imageElement.alt = this._name;
+    _fillCard() {    
+        this._elementTitle.textContent = this._name;
+        this._elementImage.src = this._link;
+        this._elementImage.alt = this._name;
     };
 
     _setEventListeners() {

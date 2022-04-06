@@ -23,18 +23,16 @@ let userId
 const userInfo = new UserInfo({
     selectorName: '.profile__name', 
     selectorJob: '.profile__job',
-    selectorAvatar: '.profile__avatar'
+    selectorAvatar: '.profile__avatar',
 });
 
 //--------------------------------------------------------------------------------
-//1. Загрузка информации о пользователе с сервера
-api.getUserInfo()
-  .then(res => {
-    console.log(res);  
-    userInfo.setUserInfo(res.name, res.about);
-    userInfo.setAvatar(res.avatar);
-
-    userId = res._id;
+//Загрузка информации о пользователе и карточек с сервера
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, items, res]) => {
+    userInfo.setUserInfo(userData);
+    section.renderItems(items);
+    /*userId = res._id;*/
   })
   .catch((err) => {
     console.log(err);
@@ -48,8 +46,8 @@ function handleProfileSubmit(data) {
     const { name, job } = data;
 
     api.editProfileData(name, job)
-      .then(() => {
-        userInfo.setUserInfo(name, job);
+      .then((res) => {
+        userInfo.setUserInfo(res.name, res.about, res.avatar, res._id);
         popupProfileAboutUser.close();
       })
       .catch((err) => {
@@ -82,7 +80,7 @@ function handleAvatarSubmit(data) {
     api.patchAvatar(avatar)
       .then((res) => {
         console.log(res);
-        userInfo.setAvatar(avatar);
+        userInfo.setUserInfo(res.name, res.about, res.avatar, res._id);
         popupChangeAvatar.close();
       })
       .catch((err) => {
@@ -103,25 +101,6 @@ profileAvatarButton.addEventListener('click', () => {
 //--------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------
-//2. Загрузка карточек с сервера
-api.getInitialCards()
-  .then(cardList => {
-    cardList.forEach(data => {
-        const card = createCard({
-            name: data.name,
-            link: data.link,
-            likes: data.likes,
-            id: data._id,
-            userId: userId,
-            ownerId: data.owner._id
-        });
-        section.addItem(card);
-    })
-  })
-  .catch((err) => {
-      console.log(err);
-  });
-
 const createCard = (data) => {
     const card = new Card(
       data,
@@ -171,36 +150,22 @@ const createCard = (data) => {
     return card.createCard();
 };
 
-//создаем экземпляр section и отрисовываем карточки из массива
 const section = new Section({
-    items: [],
-    renderer: renderCard
+  renderer: (item) => {
+    section.prependItem(createCard(item));
+  },
 }, elementsContainer);
-
-const renderCard = (data) => {
-    const addCardElement = createCard(data);
-    section.addItem(addCardElement);
-};
-
-section.renderItems();
 //--------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------
 //4. Добавление новой карточки
 const popupAddCard = new PopupWithForm(popupCards, (data) => {
     popupAddCard.renderLoading(true);
-    api.postNewCard(nameAddInput.value, imageAddInput.value)
+    api.postNewCard(data.name, data.image)
     .then((res) => {
-      console.log(res);  
-      const card = createCard({
-          name: res.name,
-          link: res.link,
-          likes: res.likes,
-          id: res._id,
-          userId: userId,
-          ownerId: res.owner._id
-      })
-      section.addItem(card);
+      console.log(data);  
+      const card = createCard(res)
+      section.prependItem(card);
       popupAddCard.close();
     })
     .catch((err) => {
@@ -210,9 +175,6 @@ const popupAddCard = new PopupWithForm(popupCards, (data) => {
       console.log('сохранение');
       popupAddCard.renderLoading(false, 'Создать');
     });
-
-  // сброс данных формы добавления картинки
-  addElementValidator.disableSubmitBtn();
 });
 
 //слушатель событий для открытия попапа добавления карточек

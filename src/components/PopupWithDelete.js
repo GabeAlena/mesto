@@ -1,14 +1,14 @@
 import Popup from './Popup.js';
 
 export class PopupWithDelete extends Popup {
-    constructor(popupSelector) {
-        super(popupSelector);
+    constructor(popup) {
+        super(popup);
 
         this._popupSubmit = this._popup.querySelector('.popup__button_delete');
     }
 
-    changeSubmit(data) {
-        this._submitHandler = data;
+    changeSubmit(newHandler) {
+        this._submitHandler = newHandler;
     }
     
     setEventListeners() {
