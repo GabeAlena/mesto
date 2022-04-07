@@ -4,13 +4,21 @@ class Api {
         this._headers = headers;
     }
 
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json()
+        } else {
+            return Promise.reject(`Ошибка: ${res.status}`)
+        }
+    }
+    
     // загрузка информации о пользователе с сервера
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: this._headers
         })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(this._checkResponse)
     }
 
     //загрузка карточек с сервера
@@ -19,7 +27,7 @@ class Api {
             method: 'GET',
             headers: this._headers
         })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(this._checkResponse)
     };
 
     //редактирование профиля
@@ -32,7 +40,7 @@ class Api {
                 about
             })
         })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(this._checkResponse)
     };
 
     //добавление новой карточки
@@ -45,7 +53,7 @@ class Api {
                 link
             })
         })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(this._checkResponse)
     };
 
     //отображение количества лайков карточки
@@ -54,7 +62,7 @@ class Api {
             method: 'GET',
             headers: this._headers
         })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(this._checkResponse)
     };
 
     //удаление карточки
@@ -63,7 +71,7 @@ class Api {
             method: 'DELETE',
             headers: this._headers
         })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(this._checkResponse)
     };
 
     //постановка и снятие лайка
@@ -72,7 +80,7 @@ class Api {
             method: 'PUT',
             headers: this._headers
         })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(this._checkResponse)
     };
 
     deleteLike(id) {
@@ -80,7 +88,7 @@ class Api {
             method: 'DELETE',
             headers: this._headers
         })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(this._checkResponse)
     };
 
     //обновление аватара пользователя
@@ -92,7 +100,7 @@ class Api {
                 avatar
             })
         })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(this._checkResponse)
     };
 }
 

@@ -3,8 +3,7 @@
 //на страницу при инициализации классаю Вторым - это функция, которая отвечает за создание и отрисовку данных на странице
 // Второй параметр конструктора - селектор контейнера, в который нужно добавлять созданные элементы
 export class Section {
-    constructor({ /*tems, */renderer }, container) {
-        /*this._initialCards = items;*/
+    constructor({ renderer }, container) {
         this._renderer = renderer;
         this._elementsContainer = container;
     };
@@ -16,12 +15,6 @@ export class Section {
             this._renderer(item);
         });
     };
-
-    /*renderItems = () => {
-        this._initialCards.forEach(item => {
-            this._renderer(item);
-        });
-    };*/
 
 // Публичный метод, который принимает дом-элемент и добавляет его в контейнер
     addItem = (element) => {

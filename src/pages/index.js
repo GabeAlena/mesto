@@ -31,6 +31,8 @@ const userInfo = new UserInfo({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, items]) => {
     userInfo.setUserInfo(userData);
+    userId = userData._id;
+    console.log(userData._id);
     section.renderItems(items);
   })
   .catch((err) => {
@@ -46,13 +48,13 @@ function handleProfileSubmit(data) {
 
     api.editProfileData(name, job)
       .then((res) => {
-        userInfo.setUserInfo(res.name, res.about, res.avatar, res._id);
+        userInfo.setUserInfo(res);
         popupProfileAboutUser.close();
       })
       .catch((err) => {
         console.log(err);
       })
-      .then(() => {
+      .finally(() => {
         console.log('сохранение');
         popupProfileAboutUser.renderLoading(false, 'Сохранить');
       })
@@ -79,13 +81,13 @@ function handleAvatarSubmit(data) {
     api.patchAvatar(avatar)
       .then((res) => {
         console.log(res);
-        userInfo.setUserInfo(res.name, res.about, res.avatar, res._id);
+        userInfo.setUserInfo(res);
         popupChangeAvatar.close();
       })
       .catch((err) => {
         console.log(err);
       })   
-      .then(() => {
+      .finally(() => {
         console.log('сохранение');
         popupChangeAvatar.renderLoading(false, 'Сохранить');
       });
@@ -101,15 +103,21 @@ profileAvatarButton.addEventListener('click', () => {
 
 //--------------------------------------------------------------------------------
 const createCard = (data) => {
-    const card = new Card(
-      data,
+    const card = new Card({
+      name: data.name,
+      link: data.link,
+      likes: data.likes,
+      id: data._id,
+      userId: userId,
+      ownerId: data.owner._id
+    },
       '#add-picture-template', 
       () => {
         popupBigImage.open(data.link, data.name);
       },
       (id) => { //8. Постановка и снятие лайков
-        console.log('clicked like');  
-        console.log(id);  
+        console.log('clicked like');
+        console.log(`Айдишник лайкнутой картинки: ${id}`);  
         if(card.isLiked()) {
             api.deleteLike(id)
             .then((res) => {
@@ -130,7 +138,7 @@ const createCard = (data) => {
       },
       (id) => { //7. Удаление карточки
         console.log('clicked button trash');
-        console.log(id);  
+        console.log(`Айдишник карточки: ${id}`);
         popupForDeleteCard.open();
         popupForDeleteCard.changeSubmit(() => {
             api.deleteCard(id)
@@ -170,7 +178,7 @@ const popupAddCard = new PopupWithForm(popupCards, (data) => {
     .catch((err) => {
       console.log(err);
     })
-    .then(() => {
+    .finally(() => {
       console.log('сохранение');
       popupAddCard.renderLoading(false, 'Создать');
     });

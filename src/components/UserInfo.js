@@ -1,8 +1,9 @@
 export class UserInfo {
-    constructor({ selectorName, selectorJob, selectorAvatar }) {
+    constructor({ selectorName, selectorJob, selectorAvatar, _id }) {
       this._profileName = document.querySelector(selectorName);
       this._profileJob = document.querySelector(selectorJob);
       this._profileAvatar = document.querySelector(selectorAvatar);
+      this._userId = _id;
     };
 
     // Содержит публичный метод, который возвращает объект с данными пользователя. Этот метод пригодится когда данные
@@ -12,7 +13,7 @@ export class UserInfo {
             selName: this._profileName.textContent,
             selJob: this._profileJob.textContent,
             selAvatar: this._profileAvatar.src,
-            id: this._userId
+            _id: this._userId
         }
     };
 

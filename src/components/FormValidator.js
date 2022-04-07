@@ -33,7 +33,7 @@ export class FormValidator {
 
     //сброс валидации
     checkValidity = () => {
-        /*this._toggleButtonState();*/
+        this._toggleButtonState();
         this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement);
         });

@@ -28,12 +28,6 @@ export class PopupWithForm extends Popup {
       return this._formValues;
     };
 
-    /*setInputValues(data) {
-        this._inputList.forEach((input) => {
-            input.value = data[input.name];
-        });
-    }*/
-
     //Перезаписывает родительский метод setEvenetListeners. Данный метод должен не только добавлять обработчик клика иконке закрытия, 
     // но и добавлять обработчик сабмита формы
     setEventListeners() {
