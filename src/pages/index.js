@@ -3,8 +3,8 @@ import { api } from '../components/Api.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { validationConfig, imagePopup, nameInput, popupAvatar, popupDeleteCard,
          jobInput, popupCards,formCards, profileAvatarButton, elementsContainer, 
-         nameAddInput, imageAddInput, buttonProfileInfoEdit, buttonAddElement, 
-         popupProfile} from '../utils/constants.js';
+         buttonProfileInfoEdit, buttonAddElement, popupProfile
+       } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import {PopupWithForm} from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
